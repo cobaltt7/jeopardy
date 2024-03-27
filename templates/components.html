@@ -1,0 +1,42 @@
+{% macro players_list(players, editable) -%}
+    <form class="players" method="post">
+        {% for player in players %}
+            <div class="player" data-player="{{ loop.index0 }}">
+                <img src="https://api.dicebear.com/5.x/fun-emoji/png?backgroundType=gradientLinear,solid&seed={{ player.name }}"
+                     alt="{{ player.name }}'s avatar" />
+                <div class="timer"></div>
+                <p class="money">
+                    <span class="score">{{ format_money(player.money) }}</span>
+                    {% if editable == "wager" %}
+                        <span class="wager">
+                            $
+                            <input type="number"
+                                   name="wager-{{ loop.index0 }}"
+                                   placeholder="Wager"
+                                   min="0" />
+                        </span>
+                        <input type="checkbox"
+                               name="guess-{{ loop.index0 }}"
+                               value="0"
+                               class="answer-button" />
+                    {% elif editable %}
+                        <input type="hidden" name="guess-{{ loop.index0 }}" value="0" />
+                        <span class="answer-button"></span>
+                    {% endif %}
+                </p>
+                <p class="name">{{ player.name }}</p>
+            </div>
+        {% endfor %}
+        {% if editable %}
+            <button class="player" type="submit">Continue Game</button>
+            <input type="hidden" name="action" value="answer" />
+        {% endif %}
+    </form>
+{%- endmacro %}
+{% macro format_money(amount) -%}
+    {% if amount < 0 %}
+        -${{ '{:,.2f}'.format(amount * -1) }}
+    {% else %}
+        ${{ '{:,.2f}'.format(amount) }}
+    {% endif %}
+{%- endmacro %}

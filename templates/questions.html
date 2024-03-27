@@ -1,0 +1,41 @@
+<!-- {% from "components.html" import players_list, format_money %} -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Jeopardy!</title>
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='styles.css') }}" />
+        {% if not room.done_questions %}
+            <script type="module" src="{{ url_for('static', filename='questions.js') }}"></script>
+        {% endif %}
+        <meta name="voice" content="{{ room.voice }}" />
+    </head>
+    <body>
+        <h1>{{ room.round_name }}</h1>
+        <h2>{{ room.id }}</h2>
+        <div class="table">
+            <div class="row">
+                {% for question in room.questions[0] %}
+                    <h2 class="cell {{ '' if room.done_questions else 'covered' }}"
+                        data-index="{{ room.round_index }}">{{ question["category"] }}</h2>
+                {% endfor %}
+            </div>
+            <div class="covered">
+                {% for row in room.questions %}
+                    <div class="row">
+                        {% for question in row %}
+                            {% if question["original_index"] in room.done_questions %}
+                                <p class="cell"></p>
+                            {% else %}
+                                <a href="?question={{ question['original_index'] }}" class="cell">{{ format_money(question["value"]) }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {{ players_list(room.players) }}
+    </body>
+</html>
