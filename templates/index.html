@@ -4,18 +4,24 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Jeopardy!</title>
-        <link rel="stylesheet" href="/static/styles.css" />
-        <script type="module" src="/static/players.js"></script>
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='styles.css') }}" />
+        <script type="module" src="{{ url_for('static', filename='index.js') }}"></script>
     </head>
     <body>
         <h1>Jeopardy!</h1>
-        <form class="setup" method="post">
-            <select name="voice" title="Text-To-Speech Voice"></select>
-            <input type="submit" value="Start Room" />
-        </form>
-        <!-- <form method="POST">
-			<input type="tel" placeholder="Room ID" name="room" />
-			<input type="submit" value="Join Room" />
-</form> -->
+        <main>
+            <form class="setup" method="post">
+                <select name="voice" title="Text-To-Speech Voice"></select>
+                <input type="submit" value="Start Room" />
+                <input type="hidden" name="action" value="create" />
+            </form>
+            <form class="setup" method="post">
+                <input type="text" placeholder="Room ID" name="room" required />
+                <input type="text" placeholder="Name" name="name" required />
+                <input type="submit" value="Join Room" />
+                <input type="hidden" name="action" value="join" />
+            </form>
+        </main>
     </body>
 </html>

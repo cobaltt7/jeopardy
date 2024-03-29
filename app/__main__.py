@@ -3,8 +3,8 @@ from os import path
 from flask import Flask, redirect, render_template, request, session
 from flask_socketio import SocketIO, send
 
-from .util import Answer
-from .rooms import Room, rooms
+from .util import Answer, Round
+from .rooms import Player, Room, rooms
 from .websocket import handle_message
 
 root_path = path.join(path.dirname(path.abspath(__file__)), "../")
@@ -16,17 +16,38 @@ socketio = SocketIO(app)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    action = request.method == "POST" and request.form.get("action", "create")
+    action = request.method == "POST" and request.form.get("action", False)
 
     if action == "create":
         room = Room(request.form)
-        question_index = None
+        session["host"] = True
         session["room"] = room.id
-    elif "room" in session and session["room"] in rooms:
+    elif action == "join":
+        room_id = request.form.get("room", None)
+        if not room_id or room_id not in rooms:
+            return render_template("index.html")
+        room = rooms[room_id]
+
+        name = request.form.get("name", "").strip().upper()
+        if not name or next(
+            (True for player in room.players if player.name == name), False
+        ):
+            return render_template("index.html")
+
+        room.players.append(Player(name))
+        session["host"] = False
+        session["room"] = room.id
+    elif "room" not in session or session["room"] not in rooms:
+        return render_template("index.html")
+    else:
         room = rooms[session["room"]]
         question_index = request.args.get("question", type=int)
-    else:
-        return render_template("index.html")
+
+    if room.round_index == Round.Lobby:
+        if action == "start" and session["host"]:
+            room.round_index = Round.Jeopardy
+            return redirect(request.path)
+        return render_template("lobby.html", room=room, is_host=session["room"])
 
     if action == "answer":
         if not room.done_questions:
@@ -77,10 +98,7 @@ def index():
         room.sort_players()
         return render_template("end.html", room=room)
 
-    return render_template(
-        "questions.html",
-        room=room,
-    )
+    return render_template("questions.html", room=room)
 
 
 @socketio.on("message")

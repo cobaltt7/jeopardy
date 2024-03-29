@@ -27,10 +27,10 @@ rooms: "dict[str, Room]" = {}
 
 
 def generate_room_id():
-    id = None
-    while id is None or id in rooms:
-        id = "".join(choices(string.ascii_uppercase + string.digits, k=6))
-    return id
+    room_id = None
+    while room_id is None or room_id in rooms:
+        room_id = "".join(choices(string.ascii_uppercase + string.digits, k=6))
+    return room_id
 
 
 class Room:
@@ -38,22 +38,24 @@ class Room:
         self.id = generate_room_id()
         self.done_questions: list[int] = []
         self.questions: list[list[Question]]
-        self.round_index: Round = 0
+        self.round_index: Round = Round.Lobby
         self.voice = form.get("voice")
-        self.players = [
-            Player(name) for name in form.getlist("player[]") if name.strip()
-        ]
+        self.players = []
         self.load_questions()
         rooms[self.id] = self
 
     @property
     def round_name(self):
-        return ROUNDS[self.round_index]
+        return (0 < self.round_index < len(ROUNDS)) and ROUNDS[self.round_index]
 
     def load_questions(self):
-        round_questions = questions_df[questions_df["round"] == self.round_name]
         round_index = self.round_index
-        if round_index == 2:
+        if round_index in (Round.Lobby, Round.End):
+            self.questions = []
+            return
+
+        round_questions = questions_df[questions_df["round"] == self.round_name]
+        if round_index == Round.FinalJeopardy:
             questions = round_questions.sample(n=1)
             questions["original_index"] = questions.index
             self.questions = [
@@ -103,14 +105,18 @@ class Room:
 
         self.done_questions = []
 
-        if self.round_index == 2:
-            self.questions = []
-            return
-        if self.round_index == 1:
-            self.round_index = 1
-            self.sort_players()
-        elif self.round_index == 0:
-            self.round_index = 1
+        match self.round_index:
+            case Round.Lobby:
+                self.round_index = Round.Jeopardy
+            case Round.Jeopardy:
+                self.round_index = Round.DoubleJeopardy
+            case Round.DoubleJeopardy:
+                self.round_index = Round.FinalJeopardy
+                self.sort_players()
+            case Round.FinalJeopardy:
+                self.round_index = Round.End
+                self.sort_players()
+
         self.load_questions()
 
     def handle_wagers(self, form: ImmutableMultiDict[str, str]):

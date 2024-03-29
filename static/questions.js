@@ -5,9 +5,7 @@ if (roundIndex === 0) {
 		document.querySelectorAll(".player")
 	);
 	const cells = [
-		.../** @type {NodeListOf<HTMLAnchorElement>} */ (
-			document.querySelectorAll("a.cell")
-		),
+		.../** @type {NodeListOf<HTMLAnchorElement>} */ (document.querySelectorAll("a.cell")),
 	];
 	for (const player of players) player.classList.add("hidden");
 	for (const cell of cells) cell.classList.add("transparent");
@@ -22,9 +20,7 @@ if (roundIndex === 0) {
 	for (const player of players) {
 		player.classList.remove("hidden");
 		await speak(
-			(!player.nextElementSibling && player.previousElementSibling
-				? "and "
-				: "") +
+			(!player.nextElementSibling && player.previousElementSibling ? "and " : "") +
 				(player.querySelector(".name")?.textContent?.trim() ?? ""),
 		);
 	}
@@ -52,8 +48,7 @@ if (roundIndex === 0) {
 for (const category of document.querySelector(".row")?.children ?? []) {
 	category.classList.remove("covered");
 	await speak(
-		(!category.nextElementSibling && category.previousElementSibling
-			? "and "
-			: "") + parseCategory(category.textContent?.trim() ?? ""),
+		(!category.nextElementSibling && category.previousElementSibling ? "and " : "") +
+			parseCategory(category.textContent?.trim() ?? ""),
 	);
 }

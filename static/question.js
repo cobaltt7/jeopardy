@@ -1,25 +1,15 @@
 import { parseCategory, roundIndex, ROUNDS, speak } from "./util.js";
 
-const table = /** @type {HTMLDivElement} */ (
-	document.querySelector("#question")
-);
-const category = parseCategory(
-	document.querySelector("#category")?.textContent?.trim() ?? "",
-);
+const table = /** @type {HTMLDivElement} */ (document.querySelector("#question"));
+const category = parseCategory(document.querySelector("#category")?.textContent?.trim() ?? "");
 const question = table.querySelector("p");
 const answer = document.querySelector("#answer");
 const isLast = document.body.classList.contains("last-question");
-const playerForm = /** @type {HTMLFormElement} */ (
-	document.querySelector(".players")
-);
+const playerForm = /** @type {HTMLFormElement} */ (document.querySelector(".players"));
 
 if (roundIndex < 2) {
 	if (isLast) await speak(`The final clue of this round.`);
-	await speak(
-		`${category} for ${document
-			.querySelector("#value")
-			?.textContent?.trim()}`,
-	);
+	await speak(`${category} for ${document.querySelector("#value")?.textContent?.trim()}`);
 	if (document.body.getAttribute("data-daily-double") === "True") {
 		const song = new Audio("/static/dd.mp3");
 		song.volume = 0.4;
@@ -28,9 +18,7 @@ if (roundIndex < 2) {
 		table.classList.add("daily-double");
 		await speak(`It's a daily double!`);
 
-		const action = /** @type {HTMLInputElement} */ (
-			Array.from(playerForm.children).at(-1)
-		);
+		const action = /** @type {HTMLInputElement} */ (Array.from(playerForm.children).at(-1));
 		action.value = "handle-wagers";
 
 		const time = 15;
@@ -51,9 +39,7 @@ if (roundIndex < 2) {
 	await speak(`It's time for ${ROUNDS[roundIndex]}!`);
 
 	const time = 15;
-	await speak(
-		`The category is ${category}. You have ${time} seconds to put down a wager.`,
-	);
+	await speak(`The category is ${category}. You have ${time} seconds to put down a wager.`);
 	await new Promise((resolve) => setTimeout(resolve, time * 1000));
 	// TODO: show the timer on each player
 
@@ -85,8 +71,7 @@ if (roundIndex < 2) {
 			wager.reportValidity();
 			if (!wager.validity.valid) return;
 		}
-		if (!(player?.previousElementSibling instanceof HTMLDivElement))
-			return playerForm.submit();
+		if (!(player?.previousElementSibling instanceof HTMLDivElement)) return playerForm.submit();
 
 		player.style.display = "none";
 		player = player.previousElementSibling;

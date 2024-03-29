@@ -1,12 +1,20 @@
-from enum import Enum
+from enum import Enum, IntEnum
 from typing import Literal
 
 VALUES = (200, 400, 600, 800, 1000)
-CATEGORIES = 2 # 6
+CATEGORIES = 2  # 6
 TOTAL_QUESTIONS = len(VALUES) * CATEGORIES
 
-Round = Literal[0, 1, 2]
 ROUNDS = ("Jeopardy!", "Double Jeopardy!", "Final Jeopardy!")
+RoundName = Literal["Jeopardy!", "Double Jeopardy!", "Final Jeopardy!"]
+
+
+class Round(IntEnum):
+    Lobby = -1
+    Jeopardy = 0
+    DoubleJeopardy = 1
+    FinalJeopardy = 2
+    End = 3
 
 
 class Answer(Enum):

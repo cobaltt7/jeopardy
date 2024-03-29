@@ -18,7 +18,7 @@
         <div class="table" id="question">
             <h2>
                 <span id="category">{{ question.category }}</span>
-                {% if room.round_index < 2 %}
+                {% if room.round_index != 2 %}
                     for
                     <span id="value">{{ format_money(question.value) }}</span>
                 {% endif %}
@@ -26,6 +26,6 @@
             <p class="hidden">{{ question.question }}</p>
             <p id="answer" class="hidden">{{ question.answer }}</p>
         </div>
-        {{ players_list(room.players, True if room.round_index < 2 and not question.dd else "wager") }}
+        {{ players_list(room.players, True if room.round_index != 2 and not question.dd else "wager") }}
     </body>
 </html>

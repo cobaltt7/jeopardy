@@ -1,18 +1,13 @@
 if (!speechSynthesis.getVoices().length)
-	await new Promise((resolve) =>
-		speechSynthesis.addEventListener("voiceschanged", resolve),
-	);
+	await new Promise((resolve) => speechSynthesis.addEventListener("voiceschanged", resolve));
 
 console.debug("Voices loaded");
 
 const voiceElement = document.querySelector("[name=voice]");
-const selectedVoice =
-	voiceElement instanceof HTMLMetaElement && voiceElement.content;
+const selectedVoice = voiceElement instanceof HTMLMetaElement && voiceElement.content;
 export const voice =
 	(voiceElement &&
-		speechSynthesis
-			.getVoices()
-			.find((voice) => voice.voiceURI === selectedVoice)) ||
+		speechSynthesis.getVoices().find((voice) => voice.voiceURI === selectedVoice)) ||
 	null;
 
 /** @param {string} category */
@@ -49,9 +44,7 @@ export function speak(text) {
 
 export const ROUNDS = ["Jeopardy!", "Double Jeopardy!", "Final Jeopardy!"];
 export const roundIndex =
-	ROUNDS.indexOf(
-		document.querySelector("h1")?.textContent?.trim() ?? ROUNDS[0] ?? "",
-	) ?? 0;
+	ROUNDS.indexOf(document.querySelector("h1")?.textContent?.trim() ?? ROUNDS[0] ?? "") ?? 0;
 
 /** @param {HTMLAudioElement} song */
 export async function fadeOut(song) {

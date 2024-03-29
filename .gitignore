@@ -1,5 +1,7 @@
 **/__pycache__
-**/.mypycache
+**/.mypy_cache
+**/.venv
 **/.vscode
 /tts
 *.csv
+**/node_modules

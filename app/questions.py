@@ -4,7 +4,7 @@ from typing import Any, Literal
 
 import pandas
 
-from .util import VALUES, Round
+from .util import VALUES, Round, RoundName
 
 questions_df = pandas.read_csv(
     "./questions_cleaned.csv",
@@ -16,7 +16,7 @@ questions_df = pandas.read_csv(
 class Question:
     show: int
     air_date: date
-    round: Round
+    round: RoundName
     category: str
     value: int | None
     question: str
@@ -28,15 +28,25 @@ class Question:
         self.__dict__.update(question)
 
 
-def pick_questions(category: pandas.DataFrame, round_index: Literal[0, 1], dd: Any):
+def pick_questions(
+    category: pandas.DataFrame,
+    round_index: Literal[Round.Jeopardy, Round.DoubleJeopardy],
+    dd: Any,
+):
     questions: pandas.DataFrame | None = None
-    values = list(map(lambda value: value * (round_index + 1), VALUES))
+    values = list(
+        map(
+            lambda value: value * 2 if round_index == Round.DoubleJeopardy else value,
+            VALUES,
+        )
+    )
     dailies = choices(values, weights=[0.24, 16.94, 53.94, 74.94, 53.94]) if dd else []
 
     for value in values:
-        unselected = category.drop(
-            [] if questions is None else questions["original_index"].tolist()
-        )
+        if questions is None:
+            unselected = category
+        else:
+            unselected = category.drop(questions["original_index"].tolist())
         filtered = unselected[unselected["value"] == value]
         if filtered.empty:
             question = unselected.sample(n=1)

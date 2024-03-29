@@ -1,0 +1,23 @@
+<!-- {% from "components.html" import players_list, format_money %} -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Jeopardy!</title>
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='styles.css') }}" />
+        <meta name="voice" content="{{ room.voice }}" />
+    </head>
+    <body>
+        <h1>Jeopardy! Lobby</h1>
+        <h2>{{ room.id }}</h2>
+        {% if host %}
+            <form class="setup" method="post">
+                <input type="submit" value="Start Game" />
+                <input type="hidden" name="start" value="join" />
+            </form>
+        {% endif %}
+        {{ players_list(room.players) }}
+    </body>
+</html>
