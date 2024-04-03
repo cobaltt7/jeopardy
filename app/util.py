@@ -1,8 +1,8 @@
 from enum import Enum, IntEnum
 from typing import Literal
 
+CATEGORIES = 2
 VALUES = (200, 400, 600, 800, 1000)
-CATEGORIES = 2  # 6
 TOTAL_QUESTIONS = len(VALUES) * CATEGORIES
 
 ROUNDS = ("Jeopardy!", "Double Jeopardy!", "Final Jeopardy!")

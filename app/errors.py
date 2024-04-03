@@ -1,7 +1,7 @@
 from enum import StrEnum, auto
 
 
-class Errors(StrEnum):
+class Error(StrEnum):
     no_room = auto()
     invalid_room = auto()
     no_player = auto()

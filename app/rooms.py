@@ -1,19 +1,20 @@
+from os import urandom
 from random import choices
 import string
 
 from werkzeug.datastructures import ImmutableMultiDict
 
+from .app import socket
 from .util import CATEGORIES, ROUNDS, TOTAL_QUESTIONS, VALUES, Answer, Round
 from .questions import Question, pick_questions, questions_df
 
 
 class Player:
-    name: str
-    money: float
-
     def __init__(self, name):
-        self.name = name.strip().upper()
-        self.money = 0
+        self.name: str = name.strip().upper()
+        self.money: float = 0
+        self.id = urandom(20).hex()
+        self.sid: str | None = None
 
     def answer_question(self, question_id: int, answer: Answer):
         value = questions_df.iloc[question_id].value
@@ -21,6 +22,12 @@ class Player:
             self.money += value
         elif answer == Answer.Loss:
             self.money -= value
+
+    def send(self, message):
+        if not self.sid:
+            return False
+        socket.send(message, to=self.sid)
+        return True
 
 
 rooms: "dict[str, Room]" = {}
@@ -37,16 +44,74 @@ class Room:
     def __init__(self, form: "ImmutableMultiDict[str, str]"):
         self.id = generate_room_id()
         self.done_questions: list[int] = []
-        self.questions: list[list[Question]]
+        self.questions: list[list[Question]] = []
         self.round_index: Round = Round.Lobby
         self.voice = form.get("voice")
-        self.players = []
-        self.load_questions()
+        self.players: list[Player] = []
+        self.host = urandom(20).hex()
+        self.host_sid: str | None = None
         rooms[self.id] = self
 
     @property
     def round_name(self):
-        return (0 < self.round_index < len(ROUNDS)) and ROUNDS[self.round_index]
+        return (0 <= self.round_index < len(ROUNDS)) and ROUNDS[self.round_index]
+
+    @property
+    def available_question_indicies(self):
+        return [question.original_index for question in self.available_questions]
+
+    @property
+    def available_questions(self):
+        return [
+            question
+            for category in self.questions
+            for question in category
+            if question.original_index not in self.done_questions
+        ]
+
+    def sort_players(self):
+        self.players = sorted(
+            self.players,
+            key=lambda player: player.money,
+            reverse=True,
+        )
+
+    def send(self, message):
+        count = 0
+
+        if self.host_sid:
+            socket.send(message, to=self.host_sid)
+        else:
+            count += 1
+
+        for player in self.players:
+            if not player.send(message):
+                count += 1
+
+        return count
+
+    def refresh_questions(self):
+        if len(self.done_questions) != TOTAL_QUESTIONS and self.round_index not in (
+            Round.Lobby,
+            Round.End,
+        ):
+            return
+
+        self.done_questions = []
+
+        match self.round_index:
+            case Round.Lobby:
+                self.round_index = Round.Jeopardy
+            case Round.Jeopardy:
+                self.round_index = Round.DoubleJeopardy
+            case Round.DoubleJeopardy:
+                self.round_index = Round.FinalJeopardy
+                self.sort_players()
+            case Round.FinalJeopardy:
+                self.round_index = Round.End
+                self.sort_players()
+
+        self.load_questions()
 
     def load_questions(self):
         round_index = self.round_index
@@ -78,46 +143,6 @@ class Room:
             )
         )
         self.questions = list(zip(*questions))
-
-    @property
-    def available_questions(self):
-        return [
-            question
-            for category in self.questions
-            for question in category
-            if question.original_index not in self.done_questions
-        ]
-
-    @property
-    def available_question_indicies(self):
-        return [question.original_index for question in self.available_questions]
-
-    def sort_players(self):
-        self.players = sorted(
-            [player for player in self.players if player.money >= 0],
-            key=lambda player: player.money,
-            reverse=True,
-        )
-
-    def refresh_questions(self):
-        if len(self.done_questions) != TOTAL_QUESTIONS:
-            return
-
-        self.done_questions = []
-
-        match self.round_index:
-            case Round.Lobby:
-                self.round_index = Round.Jeopardy
-            case Round.Jeopardy:
-                self.round_index = Round.DoubleJeopardy
-            case Round.DoubleJeopardy:
-                self.round_index = Round.FinalJeopardy
-                self.sort_players()
-            case Round.FinalJeopardy:
-                self.round_index = Round.End
-                self.sort_players()
-
-        self.load_questions()
 
     def handle_wagers(self, form: ImmutableMultiDict[str, str]):
         guesses = map(

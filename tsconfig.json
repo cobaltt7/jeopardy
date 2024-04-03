@@ -2,12 +2,18 @@
 	"compilerOptions": {
 		"allowJs": true,
 		"checkJs": true,
-		"strict": true,
 		"forceConsistentCasingInFileNames": true,
-		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
 		"noEmit": true,
 		"noUncheckedIndexedAccess": true,
-		"module": "ESNext"
+		"paths": {
+			"https://cdn.socket.io/4.7.5/socket.io.esm.min.js": [
+				"./node_modules/socket.io-client/build/esm/index.d.ts"
+			]
+		},
+		"strict": true,
+		"target": "ESNext"
 	},
 	"include": ["./*.js", "./*/**.js"]
 }
