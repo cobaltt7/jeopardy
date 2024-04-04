@@ -71,9 +71,7 @@ class Room:
 
     def sort_players(self):
         self.players = sorted(
-            self.players,
-            key=lambda player: player.money,
-            reverse=True,
+            self.players, key=lambda player: player.money, reverse=True
         )
 
     def send(self, message):
@@ -136,9 +134,7 @@ class Room:
             .groupby("category")
             .apply(
                 lambda category: pick_questions(
-                    category,
-                    round_index,
-                    (category["category"].iloc[0]) in dailies,
+                    category, round_index, (category["category"].iloc[0]) in dailies
                 )
             )
         )

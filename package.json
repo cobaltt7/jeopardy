@@ -1,19 +1,37 @@
 {
-	"name": "jeopardy",
-	"version": "0.0.1",
-	"private": true,
-	"license": "MIT",
-	"author": "RedGuy12 <61329810+RedGuy12@users.noreply.github.com>",
-	"type": "module",
-	"scripts": {
-		"format": "prettier --write \"**\" !\"**.html\" --ignore-unknown --cache",
-		"types": "tsc --project tsconfig.json"
-	},
-	"prettier": "@redguy12/prettier-config",
-	"devDependencies": {
-		"@redguy12/prettier-config": "3.0.1",
-		"prettier": "3.2.5",
-		"socket.io-client": "4.7.5",
-		"typescript": "5.4.3"
-	}
+    "name": "jeopardy",
+    "version": "0.0.1",
+    "private": true,
+    "license": "MIT",
+    "author": "RedGuy12 <61329810+RedGuy12@users.noreply.github.com>",
+    "type": "module",
+    "scripts": {
+        "format": "prettier --write \"**\" !\"**.html\" --ignore-unknown --cache",
+        "types": "tsc --project tsconfig.json"
+    },
+    "browserslist": [
+        "and_chr >= 0",
+        "and_ff >= 0",
+        "and_qq >= 0",
+        "and_uc >= 0",
+        "android >= 0",
+        "baidu >= 0",
+        "bb >= 0",
+        "chrome >= 93",
+        "edge >= 93",
+        "ff >= 92",
+        "ie_mob >= 0",
+        "ios >= 15.4",
+        "kaios >= 0",
+        "op_mini >= 0",
+        "op_mob >= 0",
+        "opera >= 79",
+        "safari >= 15.4"
+    ],
+    "devDependencies": {
+        "@redguy12/prettier-config": "3.0.1",
+        "prettier": "3.2.5",
+        "socket.io-client": "4.7.5",
+        "typescript": "5.4.3"
+    }
 }

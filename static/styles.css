@@ -1,351 +1,353 @@
 *,
 *::before,
 *::after {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html,
 body {
-	padding: 0;
-	margin: 0;
-	font-family:
-		system-ui,
-		-apple-system,
-		BlinkMacSystemFont,
-		"Segoe UI",
-		Roboto,
-		Oxygen,
-		Ubuntu,
-		Cantarell,
-		"Open Sans",
-		"Helvetica Neue",
-		sans-serif;
+    padding: 0;
+    margin: 0;
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        "Open Sans",
+        "Helvetica Neue",
+        sans-serif;
 }
 
 body {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	background: #010d8c;
-	color: white;
-	text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #010d8c;
+    color: white;
+    text-align: center;
 }
 
 h1 {
-	font-size: 4em;
+    font-size: 4em;
 }
 
 /**/
 main {
-	display: flex;
+    display: flex;
 }
 
 .setup {
-	width: 50%;
-	color: #ffcc00;
-	font-size: 1.2em;
-	font-weight: 800;
+    width: 50%;
+    color: #ffcc00;
+    font-size: 1.2em;
+    font-weight: 800;
 }
 
 .setup:first-child {
-	padding-right: 1em;
-	border-right: 3px solid black;
+    padding-right: 1em;
+    border-right: 3px solid black;
 }
 
 .setup:last-child {
-	padding-left: 1em;
-	border-left: 3px solid black;
+    padding-left: 1em;
+    border-left: 3px solid black;
 }
 
 .setup > * {
-	width: 100%;
-	display: block;
-	padding: 1.25em 3em;
-	border: 0.25em solid black;
-	margin: 1em 0;
-	background: transparent;
-	color: inherit;
-	font-size: inherit;
-	font-weight: inherit;
+    width: 100%;
+    display: block;
+    padding: 1.25em 3em;
+    border: 0.25em solid black;
+    margin: 1em 0;
+    background: transparent;
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
 }
 
 :is(select, input[type="submit"]):hover {
-	cursor: pointer;
+    cursor: pointer;
 }
 :is(button, input[type="submit"], input[type="button"]):hover {
-	background: black;
+    background: black;
 }
 :is(button, input[type="submit"], input[type="button"]) {
-	transition: background 0.25s linear;
+    transition: background 0.25s linear;
 }
 
 option {
-	background-color: #010d8c;
+    background-color: #010d8c;
 }
 
 /**/
 .table {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	border: 4px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 4px solid black;
 }
 
 .cell {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 8em;
-	min-height: 4em;
-	padding: 0.25em;
-	border: 3px solid black;
-	margin: 0;
-	color: white;
-	text-decoration: none;
-	font-size: 1em;
-	overflow-wrap: break-word;
-	overflow-wrap: anywhere;
-	background-color: #161686;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 8em;
+    min-height: 4em;
+    padding: 0.25em;
+    border: 3px solid black;
+    margin: 0;
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
+    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
+    background-color: #161686;
 }
 
 .covered {
-	background-image: url(/static/theme.jpg);
-	color: transparent;
-	background-size: cover;
-	background-position: center;
+    background-image: url(/static/theme.jpg);
+    color: transparent;
+    background-size: cover;
+    background-position: center;
 }
 
 .covered[data-index="1"] {
-	background-image: url(/static/dj.jpg);
+    background-image: url(/static/dj.jpg);
 }
 
 .transparent {
-	background: transparent;
-	color: transparent;
-	pointer-events: none;
+    background: transparent;
+    color: transparent;
+    pointer-events: none;
 }
 
 .row {
-	display: flex;
-	flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
 
 /**/
 #question {
-	width: 48em;
-	height: 24em;
-	padding: 1.5em;
-	border-width: 8px;
-	font-weight: bold;
+    width: 48em;
+    height: 24em;
+    padding: 1.5em;
+    border-width: 8px;
+    font-weight: bold;
 }
 
 .daily-double {
-	background-image: url(/static/dd.webp);
-	color: transparent;
-	background-size: cover;
-	background-position: center;
-	pointer-events: none;
+    background-image: url(/static/dd.webp);
+    color: transparent;
+    background-size: cover;
+    background-position: center;
+    pointer-events: none;
 }
 
 #question h2 {
-	font-size: 1.25em;
+    font-size: 1.25em;
 }
 
 #question p {
-	font-size: 1.75em;
+    font-size: 1.75em;
 }
 
 #question #answer {
-	font-size: 1.5em;
+    font-size: 1.5em;
 }
 
 .last-question #question h2 {
-	font-size: 3em;
+    font-size: 3em;
 }
 
 .last-question .hidden {
-	display: none;
+    display: none;
 }
 
 .hidden {
-	visibility: hidden;
+    visibility: hidden;
 }
 
 /**/
 .players {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: space-around;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .player {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 8em;
-	border: 5px solid black;
-	margin: 1em;
-	background: none;
-	color: white;
-	text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 8em;
+    border: 5px solid black;
+    margin: 1em;
+    background: none;
+    color: white;
+    text-decoration: none;
 }
 
 .player img {
-	width: 100%;
+    width: 100%;
 }
 
 .money {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	width: 100%;
-	padding: 0 0.25em;
-	border-color: black;
-	border-width: 5px;
-	border-top-style: solid;
-	border-bottom-style: solid;
-	margin: 0.5em 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 0.25em;
+    border-color: black;
+    border-width: 5px;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    margin: 0.5em 0;
 }
 
 .fj-review .score,
 [data-daily-double="True"] .score {
-	display: none;
+    display: none;
 }
 
 .name {
-	margin: 1em 0;
-	font-weight: 600;
+    margin: 1em 0;
+    font-weight: 600;
 }
 
 .wager {
-	width: 100%;
-	display: flex;
-	align-items: baseline;
+    width: 100%;
+    display: flex;
+    align-items: baseline;
 }
 
 .wager > input {
-	border: 0;
-	padding: 0;
-	margin: 0;
-	background: transparent;
-	color: inherit;
-	font-size: inherit;
-	font-weight: inherit;
-	width: 100%;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    width: 100%;
 }
 
 .answer-button {
-	width: 21px;
-	height: 21px;
-	border-color: dimgrey;
-	border-style: solid;
-	border-width: 2px;
-	background-color: gray;
-	font-size: 12px;
-	cursor: pointer;
+    width: 21px;
+    height: 21px;
+    border-color: dimgrey;
+    border-style: solid;
+    border-width: 2px;
+    background-color: gray;
+    font-size: 12px;
+    cursor: pointer;
 }
 
 .answer-button[data-state="loss"] {
-	border-color: darkred;
-	background-color: red;
+    border-color: darkred;
+    background-color: red;
 }
 
 .answer-button[data-state="loss"]::before {
-	content: "✖";
+    content: "✖";
 }
 
 input.answer-button,
 .answer-button[data-state="gain"] {
-	border-color: darkgreen;
-	background-color: green;
-	accent-color: green;
+    border-color: darkgreen;
+    background-color: green;
+    accent-color: green;
 }
 
 .answer-button[data-state="gain"]::before {
-	content: "✅";
+    content: "✅";
 }
 
 /**/
 button.player {
-	padding: 3em;
-	font-family: inherit;
-	font-size: inherit;
-	cursor: pointer;
+    padding: 3em;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
 }
 
 .final-jeopardy .wager,
 .final-jeopardy .answer-button,
 .final-jeopardy button.player {
-	display: none;
+    display: none;
 }
 
 /**/
 .end-game .players:first-of-type {
-	position: relative;
+    position: relative;
 }
 .end-game .players:first-of-type .player {
-	display: none;
+    display: none;
 }
 .end-game .players:first-of-type .timer::before {
-	position: absolute;
-	font-size: 70px;
-	rotate: 25deg;
-	bottom: 60px;
-	right: -50px;
+    position: absolute;
+    font-size: 70px;
+    transform: rotate(25deg);
+    bottom: 60px;
+    right: -50px;
 }
 .end-game .players:first-of-type [data-player="0"] {
-	position: absolute;
-	top: 0;
-	display: flex;
+    position: absolute;
+    top: 0;
+    display: flex;
 }
 .end-game .players:first-of-type [data-player="0"] .timer::before {
-	content: "🥇";
+    content: "🥇";
 }
 .end-game .players:first-of-type [data-player="1"] {
-	position: absolute;
-	top: 100px;
-	right: 75px;
-	display: flex;
+    position: absolute;
+    top: 100px;
+    right: 75px;
+    display: flex;
 }
 .end-game .players:first-of-type [data-player="1"] .timer::before {
-	content: "🥈";
+    content: "🥈";
 }
 .end-game .players:first-of-type [data-player="2"] {
-	position: absolute;
-	top: 175px;
-	left: 75px;
-	display: flex;
+    position: absolute;
+    top: 175px;
+    left: 75px;
+    display: flex;
 }
 .end-game .players:first-of-type [data-player="2"] .timer::before {
-	content: "🥉";
+    content: "🥉";
 }
 
 .end-game .players:last-of-type {
-	margin-top: 450px;
+    margin-top: 450px;
 }
 .end-game .players:last-of-type .player {
-	display: flex;
-	flex-direction: row;
-	width: 13em;
-	justify-content: flex-end;
+    display: flex;
+    flex-direction: row;
+    width: 13em;
+    justify-content: flex-end;
 }
-.end-game .players:last-of-type :is([data-player="0"], [data-player="1"], [data-player="2"]) {
-	display: none;
+.end-game
+    .players:last-of-type
+    :is([data-player="0"], [data-player="1"], [data-player="2"]) {
+    display: none;
 }
 
 .end-game .players:last-of-type .player img {
-	width: 3em;
+    width: 3em;
 }
 
 .end-game .players:last-of-type .money {
-	order: 3;
-	border: none;
-	justify-content: right;
-	color: #ffffffb3;
+    order: 3;
+    border: none;
+    justify-content: right;
+    color: #ffffffb3;
 }
 
 .end-game .players:last-of-type .name {
-	padding-left: 0.25em;
+    padding-left: 0.25em;
 }

@@ -1,19 +1,19 @@
 {
-	"compilerOptions": {
-		"allowJs": true,
-		"checkJs": true,
-		"forceConsistentCasingInFileNames": true,
-		"module": "ESNext",
-		"moduleResolution": "Bundler",
-		"noEmit": true,
-		"noUncheckedIndexedAccess": true,
-		"paths": {
-			"https://cdn.socket.io/4.7.5/socket.io.esm.min.js": [
-				"./node_modules/socket.io-client/build/esm/index.d.ts"
-			]
-		},
-		"strict": true,
-		"target": "ESNext"
-	},
-	"include": ["./*.js", "./*/**.js"]
+    "compilerOptions": {
+        "allowJs": true,
+        "checkJs": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
+        "noEmit": true,
+        "noUncheckedIndexedAccess": true,
+        "paths": {
+            "https://cdn.socket.io/4.7.5/socket.io.esm.min.js": [
+                "./node_modules/socket.io-client/build/esm/index.d.ts"
+            ]
+        },
+        "strict": true,
+        "target": "ESNext"
+    },
+    "include": ["./*.js", "./*/**.js"]
 }

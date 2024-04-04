@@ -106,13 +106,7 @@ def my_event(*message):
     response = handle_message(message[0], request.sid)  # type: ignore
     if response is None:
         return
-    send(
-        {
-            "action": "error",
-            "failed_action": message[0]["action"],
-            "error": response,
-        }
-    )
+    send({"action": "error", "failed_action": message[0]["action"], "error": response})
 
 
 if __name__ == "__main__":
