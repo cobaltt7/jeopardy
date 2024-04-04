@@ -6,6 +6,18 @@ All messages are sent as JSON-encoded objects. All messages require an `action` 
 
 ### Server-to-Client Events
 
+#### `close`
+
+-   Emitted when the host closes a room
+-   Emitted to all players in it, as well as the host.
+-   No extra properties.
+
+#### `disconnect`
+
+-   Emitted when a given player or host sends a second `join` event from a different WebSocket.
+-   Emitted to the player or host's original WebSocket only to indicate that that WebSocket will no longer recieve any future events.
+-   No extra properties.
+
 #### `error`
 
 -   Emitted in response to any failed action.
@@ -27,17 +39,11 @@ All messages are sent as JSON-encoded objects. All messages require an `action` 
 | -------- | ----- | --------------------- |
 | `player` | `str` | The new player's name |
 
-#### `close`
+#### `start`
 
--   Emitted when the host closes a room
+-   Emitted when the host starts a room
 -   Emitted to all players in it, as well as the host.
--   No extra properties.
-
-#### `disconnect`
-
--   Emitted when a given player or host sends a second `join` event from a different WebSocket.
--   Emitted to the player or host's original WebSocket only to indicate that that WebSocket will no longer recieve any future events.
--   No extra properties.
+-   No extra properties. Reload the page and reconnect to get room data.
 
 ### Client-to-Server Events
 

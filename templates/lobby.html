@@ -7,8 +7,7 @@
         <title>Jeopardy!</title>
         <link rel="stylesheet"
               href="{{ url_for('static', filename='styles.css') }}" />
-        <meta name="voice" content="{{ room.voice }}" />
-        <meta name="player" content="{{ player or host }}" />
+        <meta name="player" content="{{ session["auth_key"] }}" />
         <script type="module" src="{{ url_for('static', filename='lobby.js') }}"></script>
     </head>
     <body>

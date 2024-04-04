@@ -7,8 +7,12 @@
         <title>Jeopardy!</title>
         <link rel="stylesheet"
               href="{{ url_for('static', filename='styles.css') }}" />
-        {% if not room.done_questions %}
-            <script type="module" src="{{ url_for('static', filename='questions.js') }}"></script>
+        {% if not room.done_questions and session["auth_key"] == room.host %}
+            <script type="module"
+                    src="{{ url_for('static', filename='question-host.js') }}"></script>
+        {% else %}
+            <script type="module"
+                    src="{{ url_for('static', filename='questions-player.js') }}"></script>
         {% endif %}
         <meta name="voice" content="{{ room.voice }}" />
     </head>

@@ -1,10 +1,10 @@
-import io from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
-const socket = io();
-socket.on("message", (message) => {
-	console.log(message);
-	if (!("action" in message)) return;
+import setMessageHandler from "./websocket.js";
+
+setMessageHandler((message) => {
 	switch (message.action) {
 		case "join": {
+			if (typeof message.player !== "string") break;
+
 			const money = Object.assign(document.createElement("p"), { className: "money" });
 			money.append(
 				Object.assign(document.createElement("span"), {
@@ -34,10 +34,9 @@ socket.on("message", (message) => {
 			document.querySelector(".players")?.append(playerDiv);
 			break;
 		}
+		case "start": {
+			location.href = location.origin;
+			break;
+		}
 	}
 });
-
-const playerElement = document.querySelector("[name=player]");
-const playerId = playerElement instanceof HTMLMetaElement && playerElement.content;
-const room = document.querySelector("h2")?.innerText;
-socket.send({ action: "join", room: room, player: playerId });

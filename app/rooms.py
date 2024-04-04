@@ -13,7 +13,7 @@ class Player:
     def __init__(self, name):
         self.name: str = name.strip().upper()
         self.money: float = 0
-        self.id = urandom(20).hex()
+        self.auth_key = urandom(20).hex()
         self.sid: str | None = None
 
     def answer_question(self, question_id: int, answer: Answer):
@@ -43,13 +43,17 @@ def generate_room_id():
 class Room:
     def __init__(self, form: "ImmutableMultiDict[str, str]"):
         self.id = generate_room_id()
-        self.done_questions: list[int] = []
-        self.questions: list[list[Question]] = []
         self.round_index: Round = Round.Lobby
         self.voice = form.get("voice")
+
         self.players: list[Player] = []
-        self.host = urandom(20).hex()
+        self.host = f"host-{urandom(20).hex()}"
         self.host_sid: str | None = None
+
+        self.questions: list[list[Question]] = []
+        self.current_question: int | None = None
+        self.done_questions: list[int] = []
+
         rooms[self.id] = self
 
     @property
@@ -57,13 +61,9 @@ class Room:
         return (0 <= self.round_index < len(ROUNDS)) and ROUNDS[self.round_index]
 
     @property
-    def available_question_indicies(self):
-        return [question.original_index for question in self.available_questions]
-
-    @property
     def available_questions(self):
         return [
-            question
+            question.original_index
             for category in self.questions
             for question in category
             if question.original_index not in self.done_questions
