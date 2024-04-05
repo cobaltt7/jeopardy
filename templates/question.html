@@ -9,6 +9,7 @@
               href="{{ url_for('static', filename='styles.css') }}" />
         <script type="module" src="{{ url_for('static', filename='question.js') }}"></script>
         <script type="module" src="{{ url_for('static', filename='answer.js') }}"></script>
+        <meta name="player" content="{{ session["auth_key"] }}" />
         <meta name="voice" content="{{ room.voice }}" />
     </head>
     <body class="{{ 'last-question' if last else '' }}"

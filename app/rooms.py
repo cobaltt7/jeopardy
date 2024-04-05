@@ -5,7 +5,7 @@ import string
 from werkzeug.datastructures import ImmutableMultiDict
 
 from .app import socket
-from .util import CATEGORIES, ROUNDS, TOTAL_QUESTIONS, VALUES, Answer, Round
+from .util import CATEGORIES, ROUNDS, VALUES, Answer, Round
 from .questions import Question, pick_questions, questions_df
 
 
@@ -89,10 +89,8 @@ class Room:
         return count
 
     def refresh_questions(self):
-        if len(self.done_questions) != TOTAL_QUESTIONS and self.round_index not in (
-            Round.Lobby,
-            Round.End,
-        ):
+        print(self.round_index)
+        if len(self.available_questions) > 0:
             return
 
         self.done_questions = []
@@ -108,6 +106,7 @@ class Room:
             case Round.FinalJeopardy:
                 self.round_index = Round.End
                 self.sort_players()
+        print(self.round_index)
 
         self.load_questions()
 

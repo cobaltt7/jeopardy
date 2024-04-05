@@ -44,13 +44,16 @@ def index():
 
     if action == "close" and session["auth_key"] == room.host:
         del session["room"]
+        del rooms[room.id]
         room.send({"action": "close"})
         return render_template("index.html")
 
     if room.round_index == Round.Lobby:
         if action != "start" or session["auth_key"] != room.host:
-            return render_template("lobby.html")
-        room.send({"action": "start"})
+            return render_template("lobby.html", room=room)
+        room.round_index = Round.Jeopardy
+        room.load_questions()
+        room.send({"action": "reload"})
     elif action == "answer":
         if not room.current_question:
             return redirect(request.path)
@@ -82,8 +85,13 @@ def index():
         room.current_question = None
 
     room.refresh_questions()
-    question_count = len(room.available_questions)
-    if question_count == 1:
+    if room.round_index == Round.End:
+        del session["room"]
+        del rooms[room.id]
+        room.sort_players()
+        return render_template("end.html", room=room)
+
+    if len(room.available_questions) == 1:
         room.current_question = room.available_questions[0]
         return render_template(
             "question.html",
@@ -91,10 +99,6 @@ def index():
             room=room,
             last=True,
         )
-    if question_count == 0:
-        del session["room"]
-        room.sort_players()
-        return render_template("end.html", room=room)
 
     return render_template("questions.html", room=room)
 

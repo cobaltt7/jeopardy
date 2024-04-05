@@ -1,4 +1,10 @@
 import io from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js"
+
+const authElement = document.querySelector("[name=auth_key]")
+export const authKey = authElement instanceof HTMLMetaElement && authElement.content
+const roomElement = document.querySelector("[name=room]")
+export const roomId = roomElement instanceof HTMLMetaElement && roomElement.content
+
 export const socket = io()
 socket.on(
     "message",
@@ -8,7 +14,8 @@ socket.on(
         if (!("action" in message) || typeof message.action !== "string") return
         switch (message.action) {
             case "close": {
-                alert("The host has closed the room.")
+                if (!authKey || authKey.startsWith("host-"))
+                    alert("The host has closed the room.")
                 location.href = location.origin
                 break
             }
@@ -31,6 +38,10 @@ socket.on(
                     error: message.error,
                 })
             }
+            case "reload": {
+                location.href = location.origin
+                break
+            }
             default: {
                 handler?.({...message, action: message.action})
             }
@@ -38,14 +49,16 @@ socket.on(
     },
 )
 
-const playerElement = document.querySelector("[name=player]")
-export const playerId =
-    playerElement instanceof HTMLMetaElement && playerElement.content
+/** @param {Record<string, unknown>} data */
+export function send(data) {
+    if (roomId && authKey) {
+        socket.send({room: roomId, auth: authKey, ...data})
+        return true
+    }
+    return false
+}
 
-const roomElement = document.querySelector("[name=room]")
-export const roomId = roomElement instanceof HTMLMetaElement && roomElement.content
-
-if (roomId && playerId) socket.send({action: "join", room: roomId, player: playerId})
+send({action: "join"})
 
 /**
  * @typedef {(message: {action: string} & Record<string, unknown>) => void} Handler

@@ -1,4 +1,5 @@
 import {fadeOut, parseCategory, roundIndex, speak} from "./util.js"
+import {send} from "./websocket.js"
 
 if (roundIndex === 0) {
     const players = /** @type {NodeListOf<HTMLDivElement>} */ (
@@ -56,3 +57,5 @@ for (const category of document.querySelector(".row")?.children ?? []) {
         :   "") + parseCategory(category.textContent?.trim() ?? ""),
     )
 }
+
+send({action: "ready"})

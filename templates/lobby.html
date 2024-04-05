@@ -7,14 +7,15 @@
         <title>Jeopardy!</title>
         <link rel="stylesheet"
               href="{{ url_for('static', filename='styles.css') }}" />
-        <meta name="player" content="{{ session["auth_key"] }}" />
+        <meta name="auth_key" content="{{ session["auth_key"] }}" />
+        <meta name="room" content="{{ room.id }}" />
         <script type="module" src="{{ url_for('static', filename='lobby.js') }}"></script>
     </head>
     <body>
         <h1>Jeopardy! Lobby</h1>
         <h2>{{ room.id }}</h2>
         {{ players_list(room.players) }}
-        {% if host %}
+        {% if session["auth_key"] == room.host %}
             <form class="setup" method="post">
                 <input type="submit" value="Start Game" />
                 <input type="hidden" name="action" value="start" />

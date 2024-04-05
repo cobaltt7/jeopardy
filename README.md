@@ -8,7 +8,7 @@ All messages are sent as JSON-encoded objects. All messages require an `action` 
 
 #### `close`
 
--   Emitted when the host closes a room
+-   Emitted when the host closes a room.
 -   Emitted to all players in it, as well as the host.
 -   No extra properties.
 
@@ -39,26 +39,45 @@ All messages are sent as JSON-encoded objects. All messages require an `action` 
 | -------- | ----- | --------------------- |
 | `player` | `str` | The new player's name |
 
-#### `start`
+#### `reload`
 
--   Emitted when the host starts a room
+-   Emitted when the room status changes.
 -   Emitted to all players in it, as well as the host.
--   No extra properties. Reload the page and reconnect to get room data.
+-   No extra properties. Reload the page and reconnect to get updated data.
 
 ### Client-to-Server Events
 
+These properties are required with every payload. Some actions require additional properties.
+
+| Property | Type  | Description       |
+| -------- | ----- | ----------------- |
+| `room`   | `str` | Room ID           |
+| `auth`   | `str` | Supplied host key |
+
+All events may fail with one of these error codes. Some actions may fail in more situations.
+
+| Error Code     | Description                    |
+| -------------- | ------------------------------ |
+| `no_room`      | No room provided               |
+| `invalid_room` | Room does not exist            |
+| `no_auth`      | No authentication key provided |
+
 #### `join`
 
-Subscribe to a room
+-   Sent on page load.
+-   Subscribes the client to all future events for a room.
+-   No additional properties.
 
-| Property | Type  | Description                |
-| -------- | ----- | -------------------------- |
-| `room`   | `str` | Room ID to join            |
-| `player` | `str` | Supplied player or host ID |
+| Error Code     | Description                            |
+| -------------- | -------------------------------------- |
+| `invalid_auth` | Provided key does not match any player |
 
-| Error Code       | Description                   |
-| ---------------- | ----------------------------- |
-| `no_room`        | No room provided              |
-| `invalid_room`   | Room does not exist           |
-| `no_player`      | No player ID provided         |
-| `invalid_player` | No player with that ID exists |
+#### `ready`
+
+-   Sent by the host when a round is ready to start.
+-   Emits `ready` to the room.
+-   No additional properties.
+
+| Error Code     | Description                               |
+| -------------- | ----------------------------------------- |
+| `invalid_auth` | Provided key does not match the room host |

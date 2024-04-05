@@ -38,9 +38,5 @@ setMessageHandler((message) => {
             document.querySelector(".players")?.append(playerDiv)
             break
         }
-        case "start": {
-            location.href = location.origin
-            break
-        }
     }
 })
