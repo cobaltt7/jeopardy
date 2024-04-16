@@ -5,12 +5,10 @@ if (!speechSynthesis.getVoices().length)
 
 console.debug("Voices loaded")
 
-const voiceElement = document.querySelector("[name=voice]")
-const selectedVoice = voiceElement instanceof HTMLMetaElement && voiceElement.content
-export const voice =
-    voiceElement ?
-        speechSynthesis.getVoices().find((voice) => voice.voiceURI === selectedVoice)
-    :   undefined
+const selectedVoice = localStorage.getItem("voice")
+export const voice = speechSynthesis
+    .getVoices()
+    .find((voice) => voice.voiceURI === selectedVoice)
 
 /** @param {string} category */
 export function parseCategory(category) {
@@ -32,6 +30,7 @@ export function speak(text) {
 
     const tts = new SpeechSynthesisUtterance(text)
     tts.voice = voice
+    tts.lang = "en-US"
     return new Promise((resolve) => {
         tts.addEventListener("end", () => {
             resolve(void 0)

@@ -52,10 +52,11 @@ socket.on(
 /** @param {Record<string, unknown>} data */
 export function send(data) {
     if (roomId && authKey) {
+        if (!data.action) throw new Error("Cannot send message: Missing event action")
         socket.send({room: roomId, auth: authKey, ...data})
-        return true
+    } else {
+        throw new Error("Cannot send message: Missing room ID or auth key")
     }
-    return false
 }
 
 send({action: "join"})

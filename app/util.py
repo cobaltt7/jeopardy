@@ -1,7 +1,7 @@
 from enum import Enum, IntEnum
 from typing import Literal
 
-CATEGORIES = 6
+CATEGORIES = 2
 VALUES = (200, 400, 600, 800, 1000)
 
 ROUNDS = ("Jeopardy!", "Double Jeopardy!", "Final Jeopardy!")

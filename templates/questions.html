@@ -8,17 +8,18 @@
         <link rel="stylesheet"
               href="{{ url_for('static', filename='styles.css') }}" />
         {% if not room.done_questions %}
-            {% if session["auth_key"] == room.host %}
+            {% if session["auth_key"] == room.host.auth_key %}
                 <script type="module"
                         src="{{ url_for('static', filename='questions-host.js') }}"></script>
             {% else %}
                 <script type="module"
                         src="{{ url_for('static', filename='questions-player.js') }}"></script>
             {% endif %}
+        {% else %}
+            <script type="module" src="{{ url_for('static', filename='websocket.js') }}"></script>
         {% endif %}
         <meta name="auth_key" content="{{ session["auth_key"] }}" />
         <meta name="room" content="{{ room.id }}" />
-        <meta name="voice" content="{{ room.voice }}" />
     </head>
     <body>
         <h1>{{ room.round_name }}</h1>

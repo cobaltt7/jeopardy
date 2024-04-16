@@ -15,7 +15,7 @@
         <h1>Jeopardy! Lobby</h1>
         <h2>{{ room.id }}</h2>
         {{ players_list(room.players) }}
-        {% if session["auth_key"] == room.host %}
+        {% if session["auth_key"] == room.host.auth_key %}
             <form class="setup" method="post">
                 <input type="submit" value="Start Game" />
                 <input type="hidden" name="action" value="start" />

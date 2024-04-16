@@ -6,3 +6,5 @@ class Error(StrEnum):
     invalid_room = auto()
     no_auth = auto()
     invalid_auth = auto()
+    no_action = auto()
+    invalid_action = auto()

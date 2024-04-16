@@ -1,33 +1,12 @@
-from os import urandom
 from random import choices
 import string
 
+from pandas import Series
 from werkzeug.datastructures import ImmutableMultiDict
 
-from .app import socket
-from .util import CATEGORIES, ROUNDS, VALUES, Answer, Round
+from .users import Host, Player
+from .util import CATEGORIES, ROUNDS, VALUES, Round
 from .questions import Question, pick_questions, questions_df
-
-
-class Player:
-    def __init__(self, name):
-        self.name: str = name.strip().upper()
-        self.money: float = 0
-        self.auth_key = urandom(20).hex()
-        self.sid: str | None = None
-
-    def answer_question(self, question_id: int, answer: Answer):
-        value = questions_df.iloc[question_id].value
-        if answer == Answer.Gain:
-            self.money += value
-        elif answer == Answer.Loss:
-            self.money -= value
-
-    def send(self, message):
-        if not self.sid:
-            return False
-        socket.send(message, to=self.sid)
-        return True
 
 
 rooms: "dict[str, Room]" = {}
@@ -41,24 +20,22 @@ def generate_room_id():
 
 
 class Room:
-    def __init__(self, form: "ImmutableMultiDict[str, str]"):
+    def __init__(self):
         self.id = generate_room_id()
+        rooms[self.id] = self
         self.round_index: Round = Round.Lobby
-        self.voice = form.get("voice")
 
+        self.host = Host()
         self.players: list[Player] = []
-        self.host = f"host-{urandom(20).hex()}"
-        self.host_sid: str | None = None
 
         self.questions: list[list[Question]] = []
+        self.question_index: dict[int, Question] = {}
         self.current_question: int | None = None
         self.done_questions: list[int] = []
 
-        rooms[self.id] = self
-
     @property
     def round_name(self):
-        return (0 <= self.round_index < len(ROUNDS)) and ROUNDS[self.round_index]
+        return ROUNDS[self.round_index] if 0 <= self.round_index < len(ROUNDS) else None
 
     @property
     def available_questions(self):
@@ -74,23 +51,13 @@ class Room:
             self.players, key=lambda player: player.money, reverse=True
         )
 
-    def send(self, message):
-        count = 0
-
-        if self.host_sid:
-            socket.send(message, to=self.host_sid)
-        else:
-            count += 1
-
-        for player in self.players:
-            if not player.send(message):
-                count += 1
-
-        return count
+    def emit(self, message, exclude: str | None = None):
+        for player in self.players + [self.host]:
+            if not exclude or exclude != player.auth_key:
+                player.emit(message)
 
     def refresh_questions(self):
-        print(self.round_index)
-        if len(self.available_questions) > 0:
+        if self.available_questions:
             return
 
         self.done_questions = []
@@ -106,7 +73,6 @@ class Room:
             case Round.FinalJeopardy:
                 self.round_index = Round.End
                 self.sort_players()
-        print(self.round_index)
 
         self.load_questions()
 
@@ -116,28 +82,40 @@ class Room:
             self.questions = []
             return
 
-        round_questions = questions_df[questions_df["round"] == self.round_name]
-        if round_index == Round.FinalJeopardy:
-            questions = round_questions.sample(n=1)
-            questions["original_index"] = questions.index
-            self.questions = [
-                [Question(question) for question in questions.to_dict("records")]
-            ]
+        round_questions = questions_df.loc[questions_df["round"] == self.round_name]
+        if round_index is Round.FinalJeopardy:
+            final = round_questions.sample(n=1)
+            final["original_index"] = final.index
+            final["wager"] = True
+            self.questions = [[]]
+            for raw_question in final.to_dict("records"):
+                question = Question(raw_question)
+                self.questions[0].append(question)
+                self.question_index[question.original_index] = question
             return
 
         categories = round_questions["category"].value_counts()
-        groups = categories[categories >= len(VALUES)].sample(n=CATEGORIES)
-        dailies = groups.sample(n=round_index + 1).index
-        questions = (
-            round_questions[round_questions["category"].isin(groups.index)]
-            .groupby("category")
-            .apply(
-                lambda category: pick_questions(
-                    category, round_index, (category["category"].iloc[0]) in dailies
-                )
+        selected_categories = categories.loc[categories >= len(VALUES)].sample(
+            n=CATEGORIES
+        )
+        dailies = selected_categories.sample(n=round_index + 1).index
+
+        selected_questions = round_questions[
+            round_questions["category"].isin(selected_categories.index)
+        ]
+        questions_by_category = selected_questions.groupby("category")
+        picked_questions: Series[list[Question]] = questions_by_category.apply(  # type: ignore
+            lambda category: pick_questions(
+                category, round_index, category["category"].iloc[0] in dailies
             )
         )
-        self.questions = list(zip(*questions))
+
+        self.questions = list(zip(*picked_questions))
+        self.question_index.update({
+            question.original_index: question
+            for category in picked_questions
+            for question in category
+        })
 
     def handle_wagers(self, form: ImmutableMultiDict[str, str]):
         guesses = map(

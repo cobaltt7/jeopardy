@@ -1,4 +1,6 @@
 import {parseCategory, roundIndex, ROUNDS, speak} from "./util.js"
+import {send} from "./websocket.js"
+const STATES = ["", "loss", "gain"]
 
 const table = /** @type {HTMLDivElement} */ (document.querySelector("#question"))
 const category = parseCategory(
@@ -10,6 +12,31 @@ const isLast = document.body.classList.contains("last-question")
 const playerForm = /** @type {HTMLFormElement} */ (document.querySelector(".players"))
 
 if (roundIndex < 2) {
+    const checkboxes = document.querySelectorAll(".answer-button")
+    for (const checkbox of checkboxes) {
+        checkbox.addEventListener("click", () => {
+            const input = checkbox.previousElementSibling
+            if (!(input instanceof HTMLInputElement)) return
+
+            const oldValue = +input.value || 0
+            const newValue = (oldValue + 1) % STATES.length
+            const newState = STATES.at(newValue) ?? ""
+
+            for (const otherCheckbox of newState === "gain" ? checkboxes : []) {
+                if (otherCheckbox.getAttribute("data-state") !== "gain") continue
+
+                const otherInput = otherCheckbox.previousElementSibling
+                if (!(otherInput instanceof HTMLInputElement)) return
+
+                otherInput.value = "0"
+                otherCheckbox.setAttribute("data-state", "")
+            }
+
+            input.value = `${newValue}`
+            checkbox.setAttribute("data-state", newState)
+        })
+    }
+
     if (isLast) await speak(`The final clue of this round.`)
     await speak(
         `${category} for ${document.querySelector("#value")?.textContent?.trim()}`,
@@ -33,6 +60,7 @@ if (roundIndex < 2) {
         // TODO: show the timer on each player
 
         await speak("Here is your clue.")
+        table.classList.remove("daily-double")
     } else if (isLast) {
         await new Promise((resolve) => setTimeout(resolve, 2000))
     }
@@ -59,14 +87,12 @@ if (roundIndex < 2) {
     await new Promise((resolve) => setTimeout(resolve, 30_000))
 
     await revealAnswer()
-    document.body.classList.remove("final-jeopardy")
 
     const [action, button, ...players] =
         /** @type {[HTMLInputElement, HTMLButtonElement, ...HTMLDivElement[]]} */ (
             Array.from(playerForm.children).reverse()
         )
     for (const player of players.slice(1)) player.style.display = "none"
-    document.body.classList.add("fj-review")
 
     let player = players[0]
 
@@ -89,12 +115,13 @@ if (roundIndex < 2) {
 }
 
 async function revealQuestion() {
-    table.classList.remove("daily-double")
     document.body.classList.remove("last-question")
-    await speak(question?.textContent?.trim() ?? "")
     question?.classList.remove("hidden")
+    send({action: "ready"})
+    await speak(question?.textContent?.trim() ?? "")
 }
 async function revealAnswer() {
-    await speak(answer?.textContent?.trim() ?? "")
     answer?.classList.remove("hidden")
+    await speak(answer?.textContent?.trim() ?? "")
+    document.body.classList.remove("final-jeopardy")
 }

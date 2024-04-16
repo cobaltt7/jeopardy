@@ -1,6 +1,6 @@
 from datetime import date
 from random import choices
-from typing import Any, Literal
+from typing import Literal
 
 import pandas
 
@@ -22,7 +22,7 @@ class Question:
     question: str
     answer: str
     original_index: int
-    dd: bool
+    wager: bool
 
     def __init__(self, question):
         self.__dict__.update(question)
@@ -31,16 +31,18 @@ class Question:
 def pick_questions(
     category: pandas.DataFrame,
     round_index: Literal[Round.Jeopardy, Round.DoubleJeopardy],
-    dd: Any,
+    wager: bool,
 ):
     questions: pandas.DataFrame | None = None
     values = list(
         map(
-            lambda value: value * 2 if round_index == Round.DoubleJeopardy else value,
+            lambda value: value * 2 if round_index is Round.DoubleJeopardy else value,
             VALUES,
         )
     )
-    dailies = choices(values, weights=[0.24, 16.94, 53.94, 74.94, 53.94]) if dd else []
+    dailies = (
+        choices(values, weights=[0.24, 16.94, 53.94, 74.94, 53.94]) if wager else []
+    )
 
     for value in values:
         if questions is None:
@@ -54,7 +56,7 @@ def pick_questions(
         else:
             question = filtered.sample(n=1)
         question["original_index"] = question.index
-        question["dd"] = value in dailies
+        question["wager"] = value in dailies
 
         if questions is None:
             questions = question
