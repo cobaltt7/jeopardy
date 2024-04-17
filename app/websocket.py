@@ -26,7 +26,9 @@ def handle_message(message, sid: str) -> Error | None:
                 return
 
             player = next(
-                filter(lambda player: player.auth_key == message["auth"], room.players),
+                filter(
+                    lambda player: player.auth_key == message["auth"], room.allPlayers
+                ),
                 None,
             )
             if not player:

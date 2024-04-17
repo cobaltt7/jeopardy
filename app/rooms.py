@@ -26,7 +26,7 @@ class Room:
         self.round_index: Round = Round.Lobby
 
         self.host = Host()
-        self.players: list[Player] = []
+        self.allPlayers: list[Player] = []
 
         self.questions: list[list[Question]] = []
         self.question_index: dict[int, Question] = {}
@@ -46,13 +46,23 @@ class Room:
             if question.original_index not in self.done_questions
         ]
 
-    def sort_players(self):
-        self.players = sorted(
-            self.players, key=lambda player: player.money, reverse=True
-        )
+    @property
+    def players(self):
+        if self.round_index is Round.End:
+            return sorted(
+                self.allPlayers, key=lambda player: player.money, reverse=True
+            )
+        if self.round_index is Round.FinalJeopardy:
+            return sorted(
+                [player for player in self.allPlayers if player.money > 0],
+                key=lambda player: player.money,
+                reverse=True,
+            )
+
+        return self.allPlayers
 
     def emit(self, message, exclude: str | None = None):
-        for player in self.players + [self.host]:
+        for player in self.allPlayers + [self.host]:
             if not exclude or exclude != player.auth_key:
                 player.emit(message)
 
@@ -69,10 +79,8 @@ class Room:
                 self.round_index = Round.DoubleJeopardy
             case Round.DoubleJeopardy:
                 self.round_index = Round.FinalJeopardy
-                self.sort_players()
             case Round.FinalJeopardy:
                 self.round_index = Round.End
-                self.sort_players()
 
         self.load_questions()
 

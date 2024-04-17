@@ -22,13 +22,13 @@ def server(request: Request, session: SessionMixin):
 
         name = request.form.get("name", "").strip().upper()
         if not name or next(
-            (True for player in room.players if player.name == name), False
+            (True for player in room.allPlayers if player.name == name), False
         ):
             return render_template("index.html")
 
         player = Player(name)
         room.emit({"action": "join", "player": player.name})
-        room.players.append(player)
+        room.allPlayers.append(player)
         session["auth_key"] = player.auth_key
         session["room"] = room.id
     elif "auth_key" not in session:
