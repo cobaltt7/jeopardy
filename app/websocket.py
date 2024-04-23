@@ -1,4 +1,3 @@
-from .app import socket
 from .errors import Error
 from .rooms import rooms
 from .users import disconnected
@@ -16,25 +15,28 @@ def handle_message(message, sid: str) -> Error | None:
         return Error.no_auth
 
     match message["action"]:
-        case "join":
-            if message["auth"] == room.host.auth_key:
-                if room.host.sid == sid:
-                    return
-                if room.host.sid:
-                    socket.send({"action": "disconnect"}, to=room.host.sid)
-                room.host.sid = sid
-                return
-
+        case "buzz":
             player = next(
                 filter(
-                    lambda player: player.auth_key == message["auth"], room.allPlayers
+                    lambda player: player.auth_key == message["auth"], room.all_players
+                ),
+                None,
+            )
+            if not player:
+                return Error.invalid_auth
+            room.emit({"action": "buzz", "player": player.name})
+
+        case "join":
+            player = next(
+                filter(
+                    lambda player: player.auth_key == message["auth"],
+                    [*room.all_players, room.host],
                 ),
                 None,
             )
             if not player:
                 return Error.invalid_auth
 
-            print(player.auth_key, player.sid, sid, player.name)
             if player.sid == sid:
                 return
             if player.sid:

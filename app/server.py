@@ -22,13 +22,13 @@ def server(request: Request, session: SessionMixin):
 
         name = request.form.get("name", "").strip().upper()
         if not name or next(
-            (True for player in room.allPlayers if player.name == name), False
+            (True for player in room.all_players if player.name == name), False
         ):
             return render_template("index.html")
 
         player = Player(name)
         room.emit({"action": "join", "player": player.name})
-        room.allPlayers.append(player)
+        room.all_players.append(player)
         session["auth_key"] = player.auth_key
         session["room"] = room.id
     elif "auth_key" not in session:
@@ -37,7 +37,10 @@ def server(request: Request, session: SessionMixin):
         return render_template("index.html")
     else:
         room = rooms[session["room"]]
-        if not room.current_question:
+        if (
+            not room.current_question
+            and session["auth_key"] == room.current_player.auth_key
+        ):
             room.current_question = request.args.get("question", type=int)
             opened_question = room.current_question is not None
 
@@ -55,17 +58,20 @@ def server(request: Request, session: SessionMixin):
     elif action == "answer":
         if not room.current_question or session["auth_key"] != room.host.auth_key:
             return redirect(request.path)
-        guesses = map(
+        answers = map(
             lambda player: (
                 player[1],
                 request.form.get(f"guess-{player[0]}", Answer.No, type=Answer),
             ),
             enumerate(room.players),
         )
-        for player, guess in guesses:
-            player.answer_question(
-                room.question_index[room.current_question].value or 0, guess
-            )
+        value = room.question_index[room.current_question].value or 0
+        for player, answer in answers:
+            if answer is Answer.Gain:
+                player.money += value
+                room.current_player = player
+            elif answer is Answer.Loss:
+                player.money -= value
         room.done_questions.append(room.current_question)
         room.current_question = None
         room.refresh_questions()
@@ -81,7 +87,10 @@ def server(request: Request, session: SessionMixin):
     elif room.current_question:
         if room.current_question in room.available_questions:
             if opened_question:
-                room.emit({"action": "reload", "reason": "question"}, exclude=session["auth_key"])
+                room.emit(
+                    {"action": "reload", "reason": "question"},
+                    exclude=session["auth_key"],
+                )
             return render_template(
                 "question.html",
                 question=room.question_index[room.current_question],
@@ -92,7 +101,6 @@ def server(request: Request, session: SessionMixin):
 
     if room.round_index is Round.End:
         del session["room"]
-        room.sort_players()
         return render_template("end.html", room=room)
 
     if len(room.available_questions) == 1:

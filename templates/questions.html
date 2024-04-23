@@ -36,8 +36,10 @@
                         {% for question in row %}
                             {% if question["original_index"] in room.done_questions %}
                                 <p class="cell"></p>
-                            {% else %}
+                            {% elif session["auth_key"] == room.current_player.auth_key %}
                                 <a href="?question={{ question['original_index'] }}" class="cell">{{ format_money(question["value"]) }}</a>
+                            {% else %}
+                                <p class="cell">{{ format_money(question["value"]) }}</p>
                             {% endif %}
                         {% endfor %}
                     </div>

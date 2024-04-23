@@ -7,7 +7,7 @@ if (roundIndex === 0) {
     )
     const cells = [
         .../** @type {NodeListOf<HTMLAnchorElement>} */ (
-            document.querySelectorAll("a.cell")
+            document.querySelectorAll(".cell")
         ),
     ]
     for (const player of players) player.classList.add("hidden")

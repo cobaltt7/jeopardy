@@ -42,7 +42,6 @@ main {
 }
 .setup {
     width: 50%;
-    color: #ffcc00;
     font-size: 1.2em;
     font-weight: 800;
 }
@@ -95,12 +94,16 @@ option {
     padding: 0.25em;
     border: 3px solid black;
     margin: 0;
-    color: white;
     text-decoration: none;
     font-size: 1em;
     overflow-wrap: break-word;
     overflow-wrap: anywhere;
     background-color: #161686;
+}
+h1,
+.setup,
+.cell {
+    color: #ffcc00;
 }
 .covered {
     background-image: url(/static/theme.jpg);

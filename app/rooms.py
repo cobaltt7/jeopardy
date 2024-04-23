@@ -1,4 +1,4 @@
-from random import choices
+from random import choices, shuffle
 import string
 
 from pandas import Series
@@ -26,7 +26,8 @@ class Room:
         self.round_index: Round = Round.Lobby
 
         self.host = Host()
-        self.allPlayers: list[Player] = []
+        self.all_players: list[Player] = []
+        self._current_auth_key: str | None = None
 
         self.questions: list[list[Question]] = []
         self.question_index: dict[int, Question] = {}
@@ -50,19 +51,34 @@ class Room:
     def players(self):
         if self.round_index is Round.End:
             return sorted(
-                self.allPlayers, key=lambda player: player.money, reverse=True
+                self.all_players, key=lambda player: player.money, reverse=True
             )
         if self.round_index is Round.FinalJeopardy:
             return sorted(
-                [player for player in self.allPlayers if player.money > 0],
+                [player for player in self.all_players if player.money > 0],
                 key=lambda player: player.money,
                 reverse=True,
             )
 
-        return self.allPlayers
+        return self.all_players
+
+    @property
+    def current_player(self):
+        return next(
+            (
+                player
+                for player in self.all_players
+                if player.auth_key == self._current_auth_key
+            ),
+            self.players[0],
+        )
+
+    @current_player.setter
+    def current_player(self, player):
+        self._current_auth_key = player.auth_key
 
     def emit(self, message, exclude: str | None = None):
-        for player in self.allPlayers + [self.host]:
+        for player in self.all_players + [self.host]:
             if not exclude or exclude != player.auth_key:
                 player.emit(message)
 
@@ -72,15 +88,11 @@ class Room:
 
         self.done_questions = []
 
-        match self.round_index:
-            case Round.Lobby:
-                self.round_index = Round.Jeopardy
-            case Round.Jeopardy:
-                self.round_index = Round.DoubleJeopardy
-            case Round.DoubleJeopardy:
-                self.round_index = Round.FinalJeopardy
-            case Round.FinalJeopardy:
-                self.round_index = Round.End
+        if self.round_index == Round.Lobby:
+            shuffle(self.all_players)
+
+        self.round_index = Round(self.round_index.value + 1)
+        # TDO: end
 
         self.load_questions()
 

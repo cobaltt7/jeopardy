@@ -17,6 +17,15 @@ what action is being taken.
 | ------------- | ----- | -------------------- |
 | `sent_action` | `str` | Original sent action |
 
+#### `buzz`
+
+-   Emitted when a player buzzes in to answer a question.
+-   Emitted to all players in the room, as well as the host.
+
+| Property | Type  | Description                      |
+| -------- | ----- | -------------------------------- |
+| `player` | `str` | Name of the player who buzzed in |
+
 #### `close`
 
 -   Emitted when the host closes a room.
@@ -84,6 +93,16 @@ All events may fail with one of these error codes. Some actions may fail in more
 | `no_auth`        | No authentication key provided |
 | `no_action`      | No action provided             |
 | `invalid_action` | Unkown action provided         |
+
+#### `buzz`
+
+-   Sent when a player buzzes in to answer a question.
+-   Emits [`buzz`](#buzz) to the room.
+-   No additional properties.
+
+| Error Code     | Description                            |
+| -------------- | -------------------------------------- |
+| `invalid_auth` | Provided key does not match any player |
 
 #### `join`
 

@@ -36,12 +36,6 @@ class Player(User):
         self.name: str = name.strip().upper()
         self.money: float = 0
 
-    def answer_question(self, value: float, answer: Answer):
-        if answer is Answer.Gain:
-            self.money += value
-        elif answer is Answer.Loss:
-            self.money -= value
-
 
 class Host(User):
     def __init__(self):

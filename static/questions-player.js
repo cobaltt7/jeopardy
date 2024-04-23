@@ -6,7 +6,7 @@ const players = /** @type {NodeListOf<HTMLDivElement>} */ (
 )
 const cells = [
     .../** @type {NodeListOf<HTMLAnchorElement>} */ (
-        document.querySelectorAll("a.cell")
+        document.querySelectorAll(".cell")
     ),
 ]
 if (roundIndex === 0) {
