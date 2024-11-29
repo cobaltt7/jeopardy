@@ -1,4 +1,4 @@
-import io from "https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.esm.min.js"
+import io from "https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.esm.min.js"
 
 const authElement = document.querySelector("[name=auth_key]")
 export const authKey = authElement instanceof HTMLMetaElement && authElement.content
