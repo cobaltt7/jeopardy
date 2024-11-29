@@ -27,7 +27,7 @@
         "safari >= 15.4"
     ],
     "devDependencies": {
-        "@redguy12/prettier-config": "3.0.1",
+        "@redguy12/prettier-config": "3.2.1",
         "prettier": "3.3.0",
         "socket.io-client": "4.7.5",
         "typescript": "5.7.2"
