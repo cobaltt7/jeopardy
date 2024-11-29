@@ -38,7 +38,7 @@ jobs:
                   jupyter: true
 
             - name: Assert clean
-              if: startsWith(github.ref_name, "dependabot/") == true
+              if: startsWith(github.ref_name, 'dependabot/') == true
               run: if [[ `git status --porcelain` ]]; then exit 1; fi
 
             - name: Commit
