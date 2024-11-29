@@ -1,31 +1,19 @@
 {
     "compilerOptions": {
         "allowJs": true,
-        "allowUnreachableCode": false,
-        "allowUnusedLabels": false,
-        "baseUrl": "./",
         "checkJs": true,
-        "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "incremental": true,
-        "isolatedModules": true,
         "module": "ESNext",
+        "moduleResolution": "Bundler",
         "noEmit": true,
-        "noErrorTruncation": true,
-        "noImplicitOverride": true,
         "noUncheckedIndexedAccess": true,
-        "noUncheckedSideEffectImports": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "outDir": "./dist",
-        "strict": true,
-        "target": "ESNext",
         "paths": {
             "https://cdnjs.cloudflare.com/ajax/libs/socket.io/*": [
                 "./node_modules/socket.io-client/build/esm/index.d.ts"
             ]
         },
-        "verbatimModuleSyntax": true
+        "strict": true,
+        "target": "ESNext"
     },
     "include": ["./*.js", "./*/**.js"]
 }
