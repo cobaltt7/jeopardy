@@ -32,11 +32,10 @@ jobs:
               run: npm run format
 
             - name: Format Python
-              uses: psf/black@stable
+              uses: psf/black@v23.12.1
               with:
                   options: ""
                   jupyter: true
-                  use_pyproject: true
 
             - name: Assert clean
               if: startsWith(github.ref_name, 'dependabot/') == true
@@ -85,11 +84,10 @@ jobs:
             - name: Setup Node.JS
               uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
               with:
-                  node-version-file: package.json
                   cache: npm
 
             - name: Install
-              run: npm build
+              run: npm ci
 
             - name: Typecheck
               run: npm run types
