@@ -1,5 +1,6 @@
 import {parseCategory, roundIndex, ROUNDS, speak} from "./util.js"
 import {send} from "./websocket.js"
+
 const STATES = ["", "loss", "gain"]
 
 const table = /** @type {HTMLDivElement} */ (document.querySelector("#question"))

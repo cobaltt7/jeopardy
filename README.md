@@ -9,9 +9,9 @@ what action is being taken.
 
 #### `ack`
 
--   Emitted in response to any successful action for debugging purposes only.
--   Should not be used in any production logic and should be considered unstable.
--   Only emitted to the client who sent the originating action.
+- Emitted in response to any successful action for debugging purposes only.
+- Should not be used in any production logic and should be considered unstable.
+- Only emitted to the client who sent the originating action.
 
 | Property      | Type  | Description          |
 | ------------- | ----- | -------------------- |
@@ -19,8 +19,8 @@ what action is being taken.
 
 #### `buzz`
 
--   Emitted when a player buzzes in to answer a question.
--   Emitted to all players in the room, as well as the host.
+- Emitted when a player buzzes in to answer a question.
+- Emitted to all players in the room, as well as the host.
 
 | Property | Type  | Description                      |
 | -------- | ----- | -------------------------------- |
@@ -28,22 +28,22 @@ what action is being taken.
 
 #### `close`
 
--   Emitted when the host closes a room.
--   Emitted to all players in it, as well as the host.
--   No extra properties.
+- Emitted when the host closes a room.
+- Emitted to all players in it, as well as the host.
+- No extra properties.
 
 #### `disconnect`
 
--   Emitted when a given player or host sends a second [`join`](#join-1) event from a different
-    WebSocket.
--   Emitted only to the player or host's original WebSocket.
--   Any WebSocket receiving this event will no longer recieve any future events.
--   No extra properties.
+- Emitted when a given player or host sends a second [`join`](#join-1) event from a different
+  WebSocket.
+- Emitted only to the player or host's original WebSocket.
+- Any WebSocket receiving this event will no longer recieve any future events.
+- No extra properties.
 
 #### `error`
 
--   Emitted in response to any failed action.
--   Only emitted to the client who sent the originating action.
+- Emitted in response to any failed action.
+- Only emitted to the client who sent the originating action.
 
 | Property        | Type                                                      | Description                     |
 | --------------- | --------------------------------------------------------- | ------------------------------- |
@@ -52,9 +52,9 @@ what action is being taken.
 
 #### `join`
 
--   Emitted when a player joins a room.
--   Emitted to all players in it, as well as the host.
--   Not emitted to the player who joined.
+- Emitted when a player joins a room.
+- Emitted to all players in it, as well as the host.
+- Not emitted to the player who joined.
 
 | Property | Type  | Description           |
 | -------- | ----- | --------------------- |
@@ -62,14 +62,14 @@ what action is being taken.
 
 #### `ready`
 
--   Emitted when the host sends [`ready`](#ready-1).
--   No additional properties.
+- Emitted when the host sends [`ready`](#ready-1).
+- No additional properties.
 
 #### `reload`
 
--   Emitted when the room status changes.
--   Emitted to all players in it, as well as the host.
--   Reload the page and reconnect to get updated data.
+- Emitted when the room status changes.
+- Emitted to all players in it, as well as the host.
+- Reload the page and reconnect to get updated data.
 
 | Property | Type                                     | Description          |
 | -------- | ---------------------------------------- | -------------------- |
@@ -96,9 +96,9 @@ All events may fail with one of these error codes. Some actions may fail in more
 
 #### `buzz`
 
--   Sent when a player buzzes in to answer a question.
--   Emits [`buzz`](#buzz) to the room.
--   No additional properties.
+- Sent when a player buzzes in to answer a question.
+- Emits [`buzz`](#buzz) to the room.
+- No additional properties.
 
 | Error Code     | Description                            |
 | -------------- | -------------------------------------- |
@@ -106,9 +106,9 @@ All events may fail with one of these error codes. Some actions may fail in more
 
 #### `join`
 
--   Sent on page load.
--   Subscribes the client to all future events for a room.
--   No additional properties.
+- Sent on page load.
+- Subscribes the client to all future events for a room.
+- No additional properties.
 
 | Error Code     | Description                            |
 | -------------- | -------------------------------------- |
@@ -116,9 +116,9 @@ All events may fail with one of these error codes. Some actions may fail in more
 
 #### `ready`
 
--   Sent by the host when data is ready to be fully displayed.
--   Emits [`ready`](#ready) to the room.
--   No additional properties.
+- Sent by the host when data is ready to be fully displayed.
+- Emits [`ready`](#ready) to the room.
+- No additional properties.
 
 | Error Code     | Description                               |
 | -------------- | ----------------------------------------- |

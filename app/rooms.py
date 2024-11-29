@@ -131,11 +131,13 @@ class Room:
         )
 
         self.questions = list(zip(*picked_questions))
-        self.question_index.update({
-            question.original_index: question
-            for category in picked_questions
-            for question in category
-        })
+        self.question_index.update(
+            {
+                question.original_index: question
+                for category in picked_questions
+                for question in category
+            }
+        )
 
     def handle_wagers(self, form: ImmutableMultiDict[str, str]):
         guesses = map(

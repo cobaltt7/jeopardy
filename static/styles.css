@@ -6,8 +6,8 @@
 
 html,
 body {
-    padding: 0;
     margin: 0;
+    padding: 0;
     font-family:
         system-ui,
         -apple-system,
@@ -25,8 +25,8 @@ body {
 body {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     background: #010d8c;
     color: white;
     text-align: center;
@@ -42,27 +42,27 @@ main {
 }
 .setup {
     width: 50%;
-    font-size: 1.2em;
     font-weight: 800;
+    font-size: 1.2em;
 }
 .setup:first-child {
-    padding-right: 1em;
     border-right: 3px solid black;
+    padding-right: 1em;
 }
 .setup:last-child {
-    padding-left: 1em;
     border-left: 3px solid black;
+    padding-left: 1em;
 }
 .setup > * {
-    width: 100%;
     display: block;
-    padding: 1.25em 3em;
-    border: 0.25em solid black;
     margin: 1em 0;
+    border: 0.25em solid black;
     background: transparent;
+    padding: 1.25em 3em;
+    width: 100%;
     color: inherit;
-    font-size: inherit;
     font-weight: inherit;
+    font-size: inherit;
 }
 :is(select, input[type="submit"]):hover {
     cursor: pointer;
@@ -87,18 +87,18 @@ option {
 }
 .cell {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    margin: 0;
+    border: 3px solid black;
+    background-color: #161686;
+    padding: 0.25em;
     width: 8em;
     min-height: 4em;
-    padding: 0.25em;
-    border: 3px solid black;
-    margin: 0;
-    text-decoration: none;
     font-size: 1em;
+    text-decoration: none;
     overflow-wrap: break-word;
     overflow-wrap: anywhere;
-    background-color: #161686;
 }
 h1,
 .setup,
@@ -107,17 +107,17 @@ h1,
 }
 .covered {
     background-image: url(/static/theme.jpg);
-    color: transparent;
-    background-size: cover;
     background-position: center;
+    background-size: cover;
+    color: transparent;
 }
 .covered[data-index="1"] {
     background-image: url(/static/dj.jpg);
 }
 .transparent {
     background: transparent;
-    color: transparent;
     pointer-events: none;
+    color: transparent;
 }
 .row {
     display: flex;
@@ -126,18 +126,18 @@ h1,
 
 /**/
 #question {
+    border-width: 8px;
+    padding: 1.5em;
     width: 48em;
     height: 24em;
-    padding: 1.5em;
-    border-width: 8px;
     font-weight: bold;
 }
 .daily-double {
     background-image: url(/static/dd.webp);
-    color: transparent;
-    background-size: cover;
     background-position: center;
+    background-size: cover;
     pointer-events: none;
+    color: transparent;
 }
 #question h2 {
     font-size: 1.25em;
@@ -162,17 +162,17 @@ h1,
 .players {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     justify-content: space-around;
+    align-items: center;
 }
 .player {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 8em;
-    border: 5px solid black;
     margin: 1em;
+    border: 5px solid black;
     background: none;
+    width: 8em;
     color: white;
     text-decoration: none;
 }
@@ -181,15 +181,15 @@ h1,
 }
 .money {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    width: 100%;
-    padding: 0 0.25em;
-    border-color: black;
+    align-items: center;
+    margin: 0.5em 0;
     border-width: 5px;
     border-top-style: solid;
     border-bottom-style: solid;
-    margin: 0.5em 0;
+    border-color: black;
+    padding: 0 0.25em;
+    width: 100%;
 }
 [data-daily-double="True"] .score {
     display: none;
@@ -199,29 +199,29 @@ h1,
     font-weight: 600;
 }
 .wager {
-    width: 100%;
     display: flex;
     align-items: baseline;
-}
-.wager > input {
-    border: 0;
-    padding: 0;
-    margin: 0;
-    background: transparent;
-    color: inherit;
-    font-size: inherit;
-    font-weight: inherit;
     width: 100%;
 }
+.wager > input {
+    margin: 0;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    width: 100%;
+    color: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+}
 .answer-button {
+    cursor: pointer;
+    border-width: 2px;
+    border-style: solid;
+    border-color: dimgrey;
+    background-color: gray;
     width: 21px;
     height: 21px;
-    border-color: dimgrey;
-    border-style: solid;
-    border-width: 2px;
-    background-color: gray;
     font-size: 12px;
-    cursor: pointer;
 }
 .answer-button[data-state="loss"] {
     border-color: darkred;
@@ -243,10 +243,10 @@ input.answer-button,
 
 /**/
 button.player {
-    padding: 3em;
-    font-family: inherit;
-    font-size: inherit;
     cursor: pointer;
+    padding: 3em;
+    font-size: inherit;
+    font-family: inherit;
 }
 .final-jeopardy .score {
     display: block;
@@ -266,33 +266,33 @@ button.player {
 }
 .end-game .players:first-of-type .timer::before {
     position: absolute;
-    font-size: 70px;
-    transform: rotate(25deg);
-    bottom: 60px;
     right: -50px;
+    bottom: 60px;
+    transform: rotate(25deg);
+    font-size: 70px;
 }
 .end-game .players:first-of-type [data-player="0"] {
+    display: flex;
     position: absolute;
     top: 0;
-    display: flex;
 }
 .end-game .players:first-of-type [data-player="0"] .timer::before {
     content: "🥇";
 }
 .end-game .players:first-of-type [data-player="1"] {
+    display: flex;
     position: absolute;
     top: 100px;
     right: 75px;
-    display: flex;
 }
 .end-game .players:first-of-type [data-player="1"] .timer::before {
     content: "🥈";
 }
 .end-game .players:first-of-type [data-player="2"] {
+    display: flex;
     position: absolute;
     top: 175px;
     left: 75px;
-    display: flex;
 }
 .end-game .players:first-of-type [data-player="2"] .timer::before {
     content: "🥉";
@@ -303,8 +303,8 @@ button.player {
 .end-game .players:last-of-type .player {
     display: flex;
     flex-direction: row;
-    width: 13em;
     justify-content: flex-end;
+    width: 13em;
 }
 .end-game
     .players:last-of-type
@@ -315,9 +315,9 @@ button.player {
     width: 3em;
 }
 .end-game .players:last-of-type .money {
+    justify-content: right;
     order: 3;
     border: none;
-    justify-content: right;
     color: #ffffffb3;
 }
 .end-game .players:last-of-type .name {
