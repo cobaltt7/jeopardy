@@ -3,7 +3,6 @@
     "version": "0.0.1",
     "private": true,
     "license": "MIT",
-    "author": "RedGuy12 <61329810+RedGuy12@users.noreply.github.com>",
     "type": "module",
     "scripts": {
         "format": "prettier --write \"**\" !\"**.html\" --ignore-unknown --cache",
