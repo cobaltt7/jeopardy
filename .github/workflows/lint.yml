@@ -32,13 +32,13 @@ jobs:
               run: npm run format
 
             - name: Format Python
-              uses: psf/black@24.8.0
+              uses: psf/black@b965c2a5026f8ba399283ba3e01898b012853c79 # 24.8.0
               with:
                   options: ""
                   jupyter: true
 
             - name: Assert clean
-              if: startsWith(github.ref_name, 'dependabot/') == true
+              if: startsWith(github.ref_name, "dependabot/") == true
               run: if [[ `git status --porcelain` ]]; then exit 1; fi
 
             - name: Commit
@@ -50,9 +50,9 @@ jobs:
         name: Analyze
         runs-on: ubuntu-24.04
         strategy:
-              fail-fast: false
-              matrix:
-                  language: ["javascript", "python"]
+            fail-fast: false
+            matrix:
+                language: ["javascript", "python"]
 
         steps:
             - name: Checkout
