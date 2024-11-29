@@ -23,7 +23,7 @@
 		"strict": true,
 		"target": "ESNext",
         "paths": {
-            "https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.esm.min.js": [
+            "https://cdnjs.cloudflare.com/ajax/libs/socket.io/*": [
                 "./node_modules/socket.io-client/build/esm/index.d.ts"
             ]
         },
