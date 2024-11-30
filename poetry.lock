@@ -645,13 +645,13 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 name = "flask-socketio"
-version = "5.3.6"
+version = "5.4.1"
 description = "Socket.IO integration for Flask applications"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "Flask-SocketIO-5.3.6.tar.gz", hash = "sha256:bb8f9f9123ef47632f5ce57a33514b0c0023ec3696b2384457f0fcaa5b70501c"},
-    {file = "Flask_SocketIO-5.3.6-py3-none-any.whl", hash = "sha256:9e62d2131842878ae6bfdd7067dfc3be397c1f2b117ab1dc74e6fe74aad7a579"},
+    {file = "Flask_SocketIO-5.4.1-py3-none-any.whl", hash = "sha256:895da879d162781b9193cbb8fe8f3cf25b263ff242980d5c5e6c16d3c03930d2"},
+    {file = "flask_socketio-5.4.1.tar.gz", hash = "sha256:2e9b8864a5be37ca54f6c76a4d06b1ac5e0df61fde12d03afc81ab4057e1eb86"},
 ]
 
 [package.dependencies]
@@ -2513,4 +2513,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = "3.11.0"
-content-hash = "83bd5cb546020e8de0dc30bdfc94f687144d046753cd9b6e7625e62e1c2e5894"
+content-hash = "583ca63afab2fea38863dda52b9e0af2483686ef96c060afe6fa246f2e849af4"
