@@ -6,7 +6,7 @@ authors = ["cobaltt7"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "3.11.0"
+python = "3.13.0"
 pandas = "2.1.4"
 flask = {extras = ["async"], version = "3.0.2"}
 flask-socketio = "5.4.1"
