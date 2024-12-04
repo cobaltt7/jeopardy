@@ -8,7 +8,6 @@ from .users import Host, Player
 from .util import CATEGORIES, ROUNDS, VALUES, Round
 from .questions import Question, pick_questions, questions_df
 
-
 rooms: "dict[str, Room]" = {}
 
 
