@@ -45,9 +45,8 @@ export function speak(text) {
 
 export const ROUNDS = ["Jeopardy!", "Double Jeopardy!", "Final Jeopardy!"]
 export const roundIndex =
-    ROUNDS.indexOf(
-        document.querySelector("h1")?.textContent?.trim() ?? ROUNDS[0] ?? "",
-    ) ?? 0
+    ROUNDS.indexOf(document.querySelector("h1")?.textContent?.trim() ?? ROUNDS[0] ?? "")
+    ?? 0
 
 /** @param {HTMLAudioElement} song */
 export async function fadeOut(song) {

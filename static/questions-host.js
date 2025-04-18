@@ -23,9 +23,8 @@ if (roundIndex === 0) {
     for (const player of players) {
         player.classList.remove("hidden")
         await speak(
-            (!player.nextElementSibling && player.previousElementSibling ?
-                "and "
-            :   "") + (player.querySelector(".name")?.textContent?.trim() ?? ""),
+            (!player.nextElementSibling && player.previousElementSibling ? "and " : "")
+                + (player.querySelector(".name")?.textContent?.trim() ?? ""),
         )
     }
     await speak("Good luck!")
@@ -52,9 +51,8 @@ if (roundIndex === 0) {
 for (const category of document.querySelector(".row")?.children ?? []) {
     category.classList.remove("covered")
     await speak(
-        (!category.nextElementSibling && category.previousElementSibling ?
-            "and "
-        :   "") + parseCategory(category.textContent?.trim() ?? ""),
+        (!category.nextElementSibling && category.previousElementSibling ? "and " : "")
+            + parseCategory(category.textContent?.trim() ?? ""),
     )
 }
 
