@@ -28,8 +28,8 @@ socket.on(
             }
             case "error": {
                 if (
-                    !("failed_action" in message) ||
-                    typeof message.failed_action !== "string"
+                    !("failed_action" in message)
+                    || typeof message.failed_action !== "string"
                 )
                     break
                 if (!("error" in message) || typeof message.error !== "string") break
