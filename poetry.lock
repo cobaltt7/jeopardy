@@ -227,7 +227,7 @@ files = [
 
 [[package]]
 name = "black"
-version = "24.10.1.dev18+g3fab5ad"
+version = "25.1.1.dev27+gd0ff3bd6"
 description = "The uncompromising code formatter."
 optional = false
 python-versions = ">=3.9"
@@ -242,6 +242,7 @@ mypy-extensions = ">=0.4.3"
 packaging = ">=22.0"
 pathspec = ">=0.9.0"
 platformdirs = ">=2"
+pytokens = ">=0.1.10"
 tokenize-rt = {version = ">=3.2.0", optional = true, markers = "extra == \"jupyter\""}
 
 [package.extras]
@@ -253,8 +254,8 @@ uvloop = ["uvloop (>=0.15.2)"]
 [package.source]
 type = "git"
 url = "https://github.com/psf/black"
-reference = "3fab5ade71bccf80ae0a5af76729099869adea56"
-resolved_reference = "3fab5ade71bccf80ae0a5af76729099869adea56"
+reference = "d0ff3bd6cb82e35b1529155d29fca2c13442e68d"
+resolved_reference = "d0ff3bd6cb82e35b1529155d29fca2c13442e68d"
 
 [[package]]
 name = "bleach"
@@ -1837,6 +1838,21 @@ client = ["requests (>=2.21.0)", "websocket-client (>=0.54.0)"]
 docs = ["sphinx"]
 
 [[package]]
+name = "pytokens"
+version = "0.1.10"
+description = "A Fast, spec compliant Python 3.12+ tokenizer that runs on older Pythons."
+optional = false
+python-versions = ">=3.8"
+groups = ["dev"]
+files = [
+    {file = "pytokens-0.1.10-py3-none-any.whl", hash = "sha256:db7b72284e480e69fb085d9f251f66b3d2df8b7166059261258ff35f50fb711b"},
+    {file = "pytokens-0.1.10.tar.gz", hash = "sha256:c9a4bfa0be1d26aebce03e6884ba454e842f186a59ea43a6d3b25af58223c044"},
+]
+
+[package.extras]
+dev = ["black", "build", "mypy", "pytest", "pytest-cov", "setuptools", "tox", "twine", "wheel"]
+
+[[package]]
 name = "pytz"
 version = "2024.2"
 description = "World timezone definitions, modern and historical"
@@ -2630,4 +2646,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.1"
 python-versions = "3.11.0"
-content-hash = "7e7c625c0d9c0a8f81e3c4b6a80bc08d08090d4f978ef0db826841ac3a736df5"
+content-hash = "659f79f6524a477cf6c3985288810a70823139e593d4fb967b5946f4bcf516b0"
