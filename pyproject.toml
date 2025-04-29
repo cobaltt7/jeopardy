@@ -9,7 +9,7 @@ license = "MIT"
 python = "3.11.0"
 pandas = "2.1.4"
 flask = {extras = ["async"], version = "3.1.0"}
-flask-socketio = "5.4.1"
+flask-socketio = "5.5.1"
 
 [tool.poetry.group.dev.dependencies]
 black = {extras = ["jupyter"], git = "https://github.com/psf/black", rev = "d0ff3bd6cb82e35b1529155d29fca2c13442e68d", allow-prereleases = true}
