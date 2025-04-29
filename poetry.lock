@@ -656,19 +656,19 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 name = "flask-socketio"
-version = "5.4.1"
+version = "5.5.1"
 description = "Socket.IO integration for Flask applications"
 optional = false
 python-versions = ">=3.6"
 groups = ["main"]
 files = [
-    {file = "Flask_SocketIO-5.4.1-py3-none-any.whl", hash = "sha256:895da879d162781b9193cbb8fe8f3cf25b263ff242980d5c5e6c16d3c03930d2"},
-    {file = "flask_socketio-5.4.1.tar.gz", hash = "sha256:2e9b8864a5be37ca54f6c76a4d06b1ac5e0df61fde12d03afc81ab4057e1eb86"},
+    {file = "Flask_SocketIO-5.5.1-py3-none-any.whl", hash = "sha256:35a50166db44d055f68021d6ec32cb96f1f925cd82de4504314be79139ea846f"},
+    {file = "flask_socketio-5.5.1.tar.gz", hash = "sha256:d946c944a1074ccad8e99485a6f5c79bc5789e3ea4df0bb9c864939586c51ec4"},
 ]
 
 [package.dependencies]
 Flask = ">=0.9"
-python-socketio = ">=5.0.2"
+python-socketio = ">=5.12.0"
 
 [package.extras]
 docs = ["sphinx"]
@@ -1783,14 +1783,14 @@ six = ">=1.5"
 
 [[package]]
 name = "python-engineio"
-version = "4.10.1"
+version = "4.12.0"
 description = "Engine.IO server and client for Python"
 optional = false
 python-versions = ">=3.6"
 groups = ["main"]
 files = [
-    {file = "python_engineio-4.10.1-py3-none-any.whl", hash = "sha256:445a94004ec8034960ab99e7ce4209ec619c6e6b6a12aedcb05abeab924025c0"},
-    {file = "python_engineio-4.10.1.tar.gz", hash = "sha256:166cea8dd7429638c5c4e3a4895beae95196e860bc6f29ed0b9fe753d1ef2072"},
+    {file = "python_engineio-4.12.0-py3-none-any.whl", hash = "sha256:a0c47c129c39777e8ebc6d18011efd50db2144e4e8f08983acae8a3614626535"},
+    {file = "python_engineio-4.12.0.tar.gz", hash = "sha256:f42a36a868d7063aa10ddccf6bd6117a169b6bd00d7ca53999772093b62014f9"},
 ]
 
 [package.dependencies]
@@ -1815,19 +1815,19 @@ files = [
 
 [[package]]
 name = "python-socketio"
-version = "5.11.4"
+version = "5.13.0"
 description = "Socket.IO server and client for Python"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "python_socketio-5.11.4-py3-none-any.whl", hash = "sha256:42efaa3e3e0b166fc72a527488a13caaac2cefc76174252486503bd496284945"},
-    {file = "python_socketio-5.11.4.tar.gz", hash = "sha256:8b0b8ff2964b2957c865835e936310190639c00310a47d77321a594d1665355e"},
+    {file = "python_socketio-5.13.0-py3-none-any.whl", hash = "sha256:51f68d6499f2df8524668c24bcec13ba1414117cfb3a90115c559b601ab10caf"},
+    {file = "python_socketio-5.13.0.tar.gz", hash = "sha256:ac4e19a0302ae812e23b712ec8b6427ca0521f7c582d6abb096e36e24a263029"},
 ]
 
 [package.dependencies]
 bidict = ">=0.21.0"
-python-engineio = ">=4.8.0"
+python-engineio = ">=4.11.0"
 
 [package.extras]
 asyncio-client = ["aiohttp (>=3.4)"]
@@ -2643,4 +2643,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.1"
 python-versions = "3.11.0"
-content-hash = "659f79f6524a477cf6c3985288810a70823139e593d4fb967b5946f4bcf516b0"
+content-hash = "307f33baeaa50f64d715dd82b9f5f92d32eb6d9a0a8aadc5d22b7ff5cec79163"
