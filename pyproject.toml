@@ -7,7 +7,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "3.11.0"
-pandas = "2.2.3"
+pandas = "2.3.0"
 flask = {extras = ["async"], version = "3.1.1"}
 flask-socketio = "5.5.1"
 
@@ -15,7 +15,7 @@ flask-socketio = "5.5.1"
 black = {extras = ["jupyter"], git = "https://github.com/psf/black", rev = "d0ff3bd6cb82e35b1529155d29fca2c13442e68d", allow-prereleases = true}
 ipykernel = "6.29.5"
 notebook = "7.4.4"
-pandas-stubs = "2.2.3.250308"
+pandas-stubs = "2.2.3.250527"
 
 [build-system]
 requires = ["poetry-core"]
