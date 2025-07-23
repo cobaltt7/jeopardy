@@ -60,10 +60,10 @@ def server(request: Request, session: SessionMixin):
             return redirect(request.path)
         answers = map(
             lambda player: (
-                player[1],
-                request.form.get(f"guess-{player[0]}", Answer.No, type=Answer),
+                player,
+                request.form.get(f"guess-{player.name}", Answer.No, type=Answer),
             ),
-            enumerate(room.players),
+            room.players,
         )
         value = room.question_index[room.current_question].value or 0
         for player, answer in answers:

@@ -29,10 +29,20 @@
                 {% endif %}
             </h2>
             <p class="hidden">{{ question.question }}</p>
-            {% if session["auth_key"] == room.host.auth_key %}<p id="answer" class="hidden">{{ question.answer }}</p>{% endif %}
         </div>
         {{ players_list(room.players,
                 ("wager" if question.wager else True) if session["auth_key"] == room.host.auth_key else False
         ) }}
+        <dialog id="answer-dialog">
+            <form>
+                <p>
+                    The correct answer is <b id="answer">{{ question.answer }}</b>.
+                </p>
+                <div>
+                    <button value="1" formmethod="dialog">Correct</button>
+                    <button value="0" formmethod="dialog">Incorrect</button>
+                </div>
+            </form>
+        </dialog>
     </body>
 </html>

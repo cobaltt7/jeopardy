@@ -61,3 +61,21 @@ export async function fadeOut(song) {
     }, 10)
     await new Promise((resolve) => setTimeout(resolve, 1_000))
 }
+
+/** @param {HTMLDivElement} player */
+export function timer(player, time = 15_000) {
+    const timer = /** @type {HTMLDivElement | null} */ (player.querySelector("div.timer"))
+    if (!timer) return
+    let progress = 9
+    timer.style.width = "100%"
+    const {promise, resolve} = Promise.withResolvers()
+    const interval = setInterval(() => {
+        progress -= 2
+        timer.style.width = `${Math.max(0, progress) / 0.09}%`
+        if (progress <= 0) {
+            clearInterval(interval)
+            resolve(undefined)
+        }
+    }, time / 10)
+    return promise
+}

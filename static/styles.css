@@ -100,7 +100,6 @@ option {
     overflow-wrap: break-word;
     overflow-wrap: anywhere;
 }
-h1,
 .setup,
 .cell {
     color: #ffcc00;
@@ -184,12 +183,16 @@ h1,
     justify-content: space-between;
     align-items: center;
     margin: 0.5em 0;
+    margin: 0;
     border-width: 5px;
     border-top-style: solid;
     border-bottom-style: solid;
-    border-color: black;
-    padding: 0 0.25em;
-    width: 100%;
+}
+.timer {
+    margin: 0.25em 0;
+    background: red;
+    width: 0%;
+    height: 0.5em;
 }
 [data-daily-double="True"] .score {
     display: none;
@@ -263,6 +266,21 @@ button.player {
 }
 .end-game .players:first-of-type .player {
     display: none;
+    position: absolute;
+}
+.end-game .players:first-of-type .player:first-child {
+    display: flex;
+    top: 0;
+}
+.end-game .players:first-of-type .player:nth-child(2) {
+    display: flex;
+    top: 100px;
+    right: 75px;
+}
+.end-game .players:first-of-type .player:nth-child(3) {
+    display: flex;
+    top: 175px;
+    left: 75px;
 }
 .end-game .players:first-of-type .timer::before {
     position: absolute;
@@ -271,30 +289,13 @@ button.player {
     transform: rotate(25deg);
     font-size: 70px;
 }
-.end-game .players:first-of-type [data-player="0"] {
-    display: flex;
-    position: absolute;
-    top: 0;
-}
-.end-game .players:first-of-type [data-player="0"] .timer::before {
+.end-game .players:first-of-type .player:first-child .timer::before {
     content: "🥇";
 }
-.end-game .players:first-of-type [data-player="1"] {
-    display: flex;
-    position: absolute;
-    top: 100px;
-    right: 75px;
-}
-.end-game .players:first-of-type [data-player="1"] .timer::before {
+.end-game .players:first-of-type .player:nth-child(2) .timer::before {
     content: "🥈";
 }
-.end-game .players:first-of-type [data-player="2"] {
-    display: flex;
-    position: absolute;
-    top: 175px;
-    left: 75px;
-}
-.end-game .players:first-of-type [data-player="2"] .timer::before {
+.end-game .players:first-of-type .player:nth-child(3) .timer::before {
     content: "🥉";
 }
 .end-game .players:last-of-type {
@@ -306,20 +307,18 @@ button.player {
     justify-content: flex-end;
     width: 13em;
 }
-.end-game
-    .players:last-of-type
-    :is([data-player="0"], [data-player="1"], [data-player="2"]) {
+.end-game .players:last-of-type .player:nth-child(-n + 3) {
     display: none;
 }
 .end-game .players:last-of-type .player img {
     width: 3em;
+}
+.end-game .players:last-of-type .name {
+    padding-left: 0.25em;
 }
 .end-game .players:last-of-type .money {
     justify-content: right;
     order: 3;
     border: none;
     color: #ffffffb3;
-}
-.end-game .players:last-of-type .name {
-    padding-left: 0.25em;
 }

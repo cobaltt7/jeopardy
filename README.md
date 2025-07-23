@@ -22,9 +22,9 @@ what action is being taken.
 - Emitted when a player buzzes in to answer a question.
 - Emitted to all players in the room, as well as the host.
 
-| Property | Type  | Description                      |
-| -------- | ----- | -------------------------------- |
-| `player` | `str` | Name of the player who buzzed in |
+| Property | Type          | Description                      |
+| -------- | ------------- | -------------------------------- |
+| `player` | `str \| None` | Name of the player who buzzed in |
 
 #### `close`
 
