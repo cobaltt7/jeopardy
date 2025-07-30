@@ -12,7 +12,7 @@ flask = {extras = ["async"], version = "3.1.1"}
 flask-socketio = "5.5.1"
 
 [tool.poetry.group.dev.dependencies]
-black = {extras = ["jupyter"], git = "https://github.com/psf/black", rev = "30275ed2c3695e4c8bd9ab862c28c3d53071b17c", allow-prereleases = true}
+black = {extras = ["jupyter"], git = "https://github.com/psf/black", rev = "bdd7fcd9396350b2887e22dec67072db3aeeeaa9", allow-prereleases = true}
 ipykernel = "6.30.0"
 notebook = "7.4.4"
 pandas-stubs = "2.3.0.250703"
