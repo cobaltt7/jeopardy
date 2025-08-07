@@ -73,7 +73,7 @@ class Room:
         )
 
     @current_player.setter
-    def current_player(self, player: Player):
+    def current_player(self, player):
         self._current_auth_key = player.auth_key
 
     def emit(self, message, exclude: str | None = None):
@@ -139,11 +139,11 @@ class Room:
     def handle_wagers(self, form: ImmutableMultiDict[str, str]):
         guesses = map(
             lambda player: (
-                player,
-                form.get(f"guess-{player.name}", False, type=bool),
-                form.get(f"wager-{player.name}", 0, type=float),
+                player[1],
+                form.get(f"guess-{player[0]}", False, type=bool),
+                form.get(f"wager-{player[0]}", 0, type=float),
             ),
-            self.players,
+            enumerate(self.players),
         )
         for player, guess, wager in guesses:
             if guess:

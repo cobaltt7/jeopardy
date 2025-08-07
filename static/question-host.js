@@ -1,22 +1,16 @@
-import {parseCategory, roundIndex, ROUNDS, speak, timer} from "./util.js"
-import setMessageHandler, {send} from "./websocket.js"
+import {parseCategory, roundIndex, ROUNDS, speak} from "./util.js"
+import {send} from "./websocket.js"
 
 const STATES = ["", "loss", "gain"]
 
-const table = /** @type {HTMLDivElement} */ (document.querySelector("div#question"))
+const table = /** @type {HTMLDivElement} */ (document.querySelector("#question"))
 const category = parseCategory(
     document.querySelector("#category")?.textContent?.trim() ?? "",
 )
 const question = table.querySelector("p")
 const answer = document.querySelector("#answer")
 const isLast = document.body.classList.contains("last-question")
-const playerForm = /** @type {HTMLFormElement} */ (
-    document.querySelector("form.players")
-)
-
-const [action, ...players] = /** @type {[HTMLInputElement, ...HTMLDivElement[]]} */ (
-    Array.from(playerForm.children).reverse()
-)
+const playerForm = /** @type {HTMLFormElement} */ (document.querySelector(".players"))
 
 if (roundIndex < 2) {
     const checkboxes = document.querySelectorAll(".answer-button")
@@ -55,12 +49,16 @@ if (roundIndex < 2) {
 
         table.classList.add("daily-double")
         await speak(`It's a daily double!`)
+
+        const action = /** @type {HTMLInputElement} */ (
+            Array.from(playerForm.children).at(-1)
+        )
         action.value = "handle-wagers"
 
         const time = 15
         await speak(`You have ${time} seconds to put down a wager.`)
-        await new Promise((resolve) => setTimeout(resolve))
-        // TODO: show the timer on the current player
+        await new Promise((resolve) => setTimeout(resolve, time * 1000))
+        // TODO: show the timer on each player
 
         await speak("Here is your clue.")
         table.classList.remove("daily-double")
@@ -69,6 +67,8 @@ if (roundIndex < 2) {
     }
 
     await revealQuestion()
+
+    setTimeout(revealAnswer, 10_000)
 } else {
     document.body.classList.add("final-jeopardy")
     await speak(`It's time for ${ROUNDS[roundIndex]}!`)
@@ -77,17 +77,24 @@ if (roundIndex < 2) {
     await speak(
         `The category is ${category}. You have ${time} seconds to put down a wager.`,
     )
-    await Promise.all(players.map((player) => timer(player, time * 1000)))
+    await new Promise((resolve) => setTimeout(resolve, time * 1000))
+    // TODO: show the timer on each player
 
     await speak("Here is your clue.")
     await revealQuestion()
 
     await speak("You have 30 seconds. Good luck.")
     await new Audio("/static/fj.mp3").play().catch(console.error)
-    await Promise.all(players.map((player) => timer(player, 30_000)))
+    await new Promise((resolve) => setTimeout(resolve, 30_000))
 
     await revealAnswer()
+
+    const [action, button, ...players] =
+        /** @type {[HTMLInputElement, HTMLButtonElement, ...HTMLDivElement[]]} */ (
+            Array.from(playerForm.children).reverse()
+        )
     for (const player of players.slice(1)) player.style.display = "none"
+
     let player = players[0]
 
     action.value = "handle-wagers"
@@ -108,58 +115,14 @@ if (roundIndex < 2) {
     })
 }
 
-let startTime = Date.now()
-let timeLeft = 15000
-/** @type {number | undefined} */
-let buzzTimer
 async function revealQuestion() {
     document.body.classList.remove("last-question")
     question?.classList.remove("hidden")
     send({action: "ready"})
-
     await speak(question?.textContent?.trim() ?? "")
-
-    startTime = Date.now()
-    setMessageHandler(async (message) => {
-        switch (message.action) {
-            case "buzz": {
-                if (typeof message.player !== "string") break
-                const player =
-                    typeof message.player === "string"
-                    && /** @type {HTMLDivElement | null} */ (
-                        document.querySelector(
-                            `div[data-player='${message.player.replaceAll("'", "\\'").replaceAll("\\", "\\\\")}']`,
-                        )
-                    )
-
-                clearTimeout(buzzTimer)
-                timeLeft = -(Date.now() - startTime)
-                startTime = Date.now()
-                if (player) {
-                    const answerTimer = timer(player)
-                }
-
-                allowBuzzing()
-                break
-            }
-        }
-    })
-    allowBuzzing()
-}
-
-async function allowBuzzing() {
-    send({action: "allow-buzzing"})
-    startTime = Date.now()
-    buzzTimer = setTimeout(async () => {
-        send({action: "buzz"})
-        answer?.classList.remove("hidden")
-        await speak(answer?.textContent?.trim() ?? "")
-        playerForm.submit()
-    }, timeLeft)
 }
 async function revealAnswer() {
-    document.body.classList.remove("final-jeopardy")
-    send({action: "buzz"})
     answer?.classList.remove("hidden")
     await speak(answer?.textContent?.trim() ?? "")
+    document.body.classList.remove("final-jeopardy")
 }
