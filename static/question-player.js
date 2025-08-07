@@ -26,8 +26,8 @@ setMessageHandler(async (message) => {
         case "buzz": {
             buzzer.disabled = true
             const player =
-                typeof message.player === "string" &&
-                /** @type {HTMLDivElement | null} */ (
+                typeof message.player === "string"
+                && /** @type {HTMLDivElement | null} */ (
                     document.querySelector(
                         `div[data-player='${message.player.replaceAll("'", "\\'").replaceAll("\\", "\\\\")}']`,
                     )

@@ -64,7 +64,9 @@ export async function fadeOut(song) {
 
 /** @param {HTMLDivElement} player */
 export function timer(player, time = 15_000) {
-    const timer = /** @type {HTMLDivElement | null} */ (player.querySelector("div.timer"))
+    const timer = /** @type {HTMLDivElement | null} */ (
+        player.querySelector("div.timer")
+    )
     if (!timer) return
     let progress = 9
     timer.style.width = "100%"
