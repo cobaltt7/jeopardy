@@ -227,7 +227,7 @@ files = [
 
 [[package]]
 name = "black"
-version = "25.9.1.dev27+g27a3085e4"
+version = "25.9.1.dev39+gb5f354c56"
 description = "The uncompromising code formatter."
 optional = false
 python-versions = ">=3.9"
@@ -242,7 +242,7 @@ mypy-extensions = ">=0.4.3"
 packaging = ">=22.0"
 pathspec = ">=0.9.0"
 platformdirs = ">=2"
-pytokens = ">=0.1.10"
+pytokens = ">=0.3.0"
 tokenize-rt = {version = ">=3.2.0", optional = true, markers = "extra == \"jupyter\""}
 
 [package.extras]
@@ -254,8 +254,8 @@ uvloop = ["uvloop (>=0.15.2)"]
 [package.source]
 type = "git"
 url = "https://github.com/psf/black"
-reference = "27a3085e4711d0438a0b655a05748ecb6529f515"
-resolved_reference = "27a3085e4711d0438a0b655a05748ecb6529f515"
+reference = "b5f354c56627640e0b853af51a51d9262bafa9f0"
+resolved_reference = "b5f354c56627640e0b853af51a51d9262bafa9f0"
 
 [[package]]
 name = "bleach"
@@ -1868,14 +1868,14 @@ docs = ["sphinx"]
 
 [[package]]
 name = "pytokens"
-version = "0.1.10"
-description = "A Fast, spec compliant Python 3.12+ tokenizer that runs on older Pythons."
+version = "0.3.0"
+description = "A Fast, spec compliant Python 3.14+ tokenizer that runs on older Pythons."
 optional = false
 python-versions = ">=3.8"
 groups = ["dev"]
 files = [
-    {file = "pytokens-0.1.10-py3-none-any.whl", hash = "sha256:db7b72284e480e69fb085d9f251f66b3d2df8b7166059261258ff35f50fb711b"},
-    {file = "pytokens-0.1.10.tar.gz", hash = "sha256:c9a4bfa0be1d26aebce03e6884ba454e842f186a59ea43a6d3b25af58223c044"},
+    {file = "pytokens-0.3.0-py3-none-any.whl", hash = "sha256:95b2b5eaf832e469d141a378872480ede3f251a5a5041b8ec6e581d3ac71bbf3"},
+    {file = "pytokens-0.3.0.tar.gz", hash = "sha256:2f932b14ed08de5fcf0b391ace2642f858f1394c0857202959000b68ed7a458a"},
 ]
 
 [package.extras]
@@ -2676,4 +2676,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.1"
 python-versions = "3.11.0"
-content-hash = "89386167cae8d891c3335c339b8a27960eece426a76eb75fd1be8bd7fca82322"
+content-hash = "9a604a11f1ec1c9d4d19e0f8437c0df06b1a5653e1fb306d0b78d418c8c9ac71"
