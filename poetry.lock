@@ -227,10 +227,10 @@ files = [
 
 [[package]]
 name = "black"
-version = "25.9.1.dev39+gb5f354c56"
+version = "25.11.1.dev8+gf37758e66"
 description = "The uncompromising code formatter."
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.10"
 groups = ["dev"]
 files = []
 develop = false
@@ -254,8 +254,8 @@ uvloop = ["uvloop (>=0.15.2)"]
 [package.source]
 type = "git"
 url = "https://github.com/psf/black"
-reference = "b5f354c56627640e0b853af51a51d9262bafa9f0"
-resolved_reference = "b5f354c56627640e0b853af51a51d9262bafa9f0"
+reference = "f37758e666cdac45eb0b622cfb6b0320fafd662c"
+resolved_reference = "f37758e666cdac45eb0b622cfb6b0320fafd662c"
 
 [[package]]
 name = "bleach"
@@ -2676,4 +2676,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.1"
 python-versions = "3.11.0"
-content-hash = "9a604a11f1ec1c9d4d19e0f8437c0df06b1a5653e1fb306d0b78d418c8c9ac71"
+content-hash = "90b200d1653cde62f624f9166429bd652adfc8fee833a0fb3acacfcf54333af2"
