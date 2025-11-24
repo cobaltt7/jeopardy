@@ -31,7 +31,7 @@ jobs:
               run: npm run format
 
             - name: Format Python
-              uses: psf/black@aa143e772037e5f975418e89703b4d36cda86f40
+              uses: psf/black@cbf105a784302d8e3e3a62127061d7c2a8c3d420
               with:
                   options: ""
                   jupyter: true
