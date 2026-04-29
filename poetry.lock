@@ -677,22 +677,27 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 name = "flask-socketio"
-version = "5.5.1"
+version = "5.6.1"
 description = "Socket.IO integration for Flask applications"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "Flask_SocketIO-5.5.1-py3-none-any.whl", hash = "sha256:35a50166db44d055f68021d6ec32cb96f1f925cd82de4504314be79139ea846f"},
-    {file = "flask_socketio-5.5.1.tar.gz", hash = "sha256:d946c944a1074ccad8e99485a6f5c79bc5789e3ea4df0bb9c864939586c51ec4"},
+    {file = "flask_socketio-5.6.1-py3-none-any.whl", hash = "sha256:51a3f71b28b4476c650829607e3a993e076034db6c3cc31f718f0a4b45939d42"},
+    {file = "flask_socketio-5.6.1.tar.gz", hash = "sha256:fe5bd995c3ed4da9a98f335d0d830fa1a19d84a64789f6265642a671fdacaeac"},
 ]
 
 [package.dependencies]
-Flask = ">=0.9"
+blinker = "*"
+click = "*"
+flask = ">=2.1.0"
+jinja2 = "*"
 python-socketio = ">=5.12.0"
+werkzeug = "*"
 
 [package.extras]
-docs = ["sphinx"]
+dev = ["flask-login", "flask-session", "pytest", "pytest-cov", "redis", "tox"]
+docs = ["furo", "sphinx"]
 
 [[package]]
 name = "fqdn"
@@ -2729,4 +2734,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.1"
 python-versions = "3.11.0"
-content-hash = "78dbe20692ce3dcbf3e05c0c2e53d3dadbe95fc893377209aca1d73569af3a30"
+content-hash = "eb502bc0546012536b418945d3740dc8633f98143d818768f79ac0afa5466461"
