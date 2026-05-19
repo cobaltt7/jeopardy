@@ -91,6 +91,7 @@ if (roundIndex < 2) {
     let player = players[0]
 
     action.value = "handle-wagers"
+    const button = document.createElement("button")
     button.type = "button"
     button.textContent = "Next"
     button.addEventListener("click", () => {
@@ -106,6 +107,7 @@ if (roundIndex < 2) {
         player = player.previousElementSibling
         player.style.display = "block"
     })
+    playerForm.append(button)
 }
 
 let startTime = Date.now()
