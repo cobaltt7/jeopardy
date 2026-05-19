@@ -2,11 +2,11 @@ import {roundIndex} from "./util.js"
 import setMessageHandler from "./websocket.js"
 
 const players = /** @type {NodeListOf<HTMLDivElement>} */ (
-    document.querySelectorAll(".player")
+    document.querySelectorAll("div.player")
 )
 const cells = [
-    .../** @type {NodeListOf<HTMLAnchorElement>} */ (
-        document.querySelectorAll(".cell")
+    .../** @type {NodeListOf<HTMLElement>} */ (
+        document.querySelectorAll(".cell:not(h2)")
     ),
 ]
 if (roundIndex === 0) {

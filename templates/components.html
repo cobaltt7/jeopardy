@@ -1,7 +1,7 @@
 {% macro players_list(players, editable) -%}
     <form class="players" method="post">
         {% for player in players %}
-            <div class="player" data-player="{{ loop.index0 }}">
+            <div class="player" data-player="{{ player.name }}">
                 <img src="https://api.dicebear.com/5.x/fun-emoji/png?backgroundType=gradientLinear,solid&seed={{ player.name }}"
                      alt="{{ player.name }}'s avatar" />
                 <div class="timer"></div>
@@ -11,17 +11,17 @@
                         <span class="wager">
                             $
                             <input type="number"
-                                   name="wager-{{ loop.index0 }}"
+                                   name="wager-{{ player.name }}"
                                    placeholder="Wager"
                                    min="0" />
                         </span>
                         <input type="checkbox"
-                               name="guess-{{ loop.index0 }}"
+                               name="guess-{{ player.name }}"
                                value="0"
                                title="Guess"
                                class="answer-button" />
                     {% elif editable %}
-                        <input type="hidden" name="guess-{{ loop.index0 }}" value="0" />
+                        <input type="hidden" name="guess-{{ player.name }}" value="0" />
                         <span class="answer-button"></span>
                     {% endif %}
                 </p>
@@ -29,7 +29,6 @@
             </div>
         {% endfor %}
         {% if editable %}
-            <button class="player" type="submit">Continue Game</button>
             <input type="hidden" name="action" value="answer" />
         {% endif %}
     </form>

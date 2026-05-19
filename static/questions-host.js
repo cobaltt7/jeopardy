@@ -3,11 +3,11 @@ import {send} from "./websocket.js"
 
 if (roundIndex === 0) {
     const players = /** @type {NodeListOf<HTMLDivElement>} */ (
-        document.querySelectorAll(".player")
+        document.querySelectorAll("div.player")
     )
     const cells = [
-        .../** @type {NodeListOf<HTMLAnchorElement>} */ (
-            document.querySelectorAll(".cell")
+        .../** @type {NodeListOf<HTMLElement>} */ (
+            document.querySelectorAll(".cell:not(h2)")
         ),
     ]
     for (const player of players) player.classList.add("hidden")

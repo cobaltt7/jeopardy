@@ -16,6 +16,9 @@ def handle_message(message, sid: str) -> Error | None:
 
     match message["action"]:
         case "buzz":
+            if message["auth"] == room.host.auth_key:
+                room.emit({"action": "buzz", "player": None})
+                return
             player = next(
                 filter(
                     lambda player: player.auth_key == message["auth"], room.all_players
