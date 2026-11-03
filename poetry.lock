@@ -677,14 +677,14 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 name = "flask-socketio"
-version = "5.6.1"
+version = "5.7.2"
 description = "Socket.IO integration for Flask applications"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "flask_socketio-5.6.1-py3-none-any.whl", hash = "sha256:51a3f71b28b4476c650829607e3a993e076034db6c3cc31f718f0a4b45939d42"},
-    {file = "flask_socketio-5.6.1.tar.gz", hash = "sha256:fe5bd995c3ed4da9a98f335d0d830fa1a19d84a64789f6265642a671fdacaeac"},
+    {file = "flask_socketio-5.7.2-py3-none-any.whl", hash = "sha256:c2b3fc4e7313f3a60ad8555526afb7221b270946a29aa7ffcda47a4521a542a2"},
+    {file = "flask_socketio-5.7.2.tar.gz", hash = "sha256:6b2f967f24f693f2316d108b2d2125642db856b2681c12e60ded9bff1b8035e0"},
 ]
 
 [package.dependencies]
@@ -692,7 +692,7 @@ blinker = "*"
 click = "*"
 flask = ">=2.1.0"
 jinja2 = "*"
-python-socketio = ">=5.12.0"
+python-socketio = ">=5.18.0"
 werkzeug = "*"
 
 [package.extras]
@@ -1869,23 +1869,24 @@ six = ">=1.5"
 
 [[package]]
 name = "python-engineio"
-version = "4.12.0"
+version = "4.15.1"
 description = "Engine.IO server and client for Python"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "python_engineio-4.12.0-py3-none-any.whl", hash = "sha256:a0c47c129c39777e8ebc6d18011efd50db2144e4e8f08983acae8a3614626535"},
-    {file = "python_engineio-4.12.0.tar.gz", hash = "sha256:f42a36a868d7063aa10ddccf6bd6117a169b6bd00d7ca53999772093b62014f9"},
+    {file = "python_engineio-4.15.1-py3-none-any.whl", hash = "sha256:745cb3c07701c719a2906439a00b67e44ef042904036568530a2c3a8cf18c89a"},
+    {file = "python_engineio-4.15.1.tar.gz", hash = "sha256:1a412e798a90c64fabe7b20798939ae6d4a03f34da8a33d5a21a25a8bbbc3612"},
 ]
 
 [package.dependencies]
 simple-websocket = ">=0.10.0"
 
 [package.extras]
-asyncio-client = ["aiohttp (>=3.4)"]
+asyncio-client = ["aiohttp (>=3.11)"]
 client = ["requests (>=2.21.0)", "websocket-client (>=0.54.0)"]
-docs = ["sphinx"]
+dev = ["tox"]
+docs = ["furo", "sphinx"]
 
 [[package]]
 name = "python-json-logger"
@@ -1901,24 +1902,25 @@ files = [
 
 [[package]]
 name = "python-socketio"
-version = "5.14.0"
+version = "5.18.0"
 description = "Socket.IO server and client for Python"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "python_socketio-5.14.0-py3-none-any.whl", hash = "sha256:7de5ad8a55efc33e17897f6cf91d20168d3d259f98c38d38e2940af83136d6f8"},
-    {file = "python_socketio-5.14.0.tar.gz", hash = "sha256:d057737f658b3948392ff452a5c865c5ccc969859c37cf095a73393ce755f98e"},
+    {file = "python_socketio-5.18.0-py3-none-any.whl", hash = "sha256:b443bce375a9c6a1071b298ef85ddf11bcee102b3823d587315635a87db3a14f"},
+    {file = "python_socketio-5.18.0.tar.gz", hash = "sha256:81ec0fbc34b82009272834145a8fab82ccc36eb057eb2c3798dfe253fa47ed72"},
 ]
 
 [package.dependencies]
 bidict = ">=0.21.0"
-python-engineio = ">=4.11.0"
+python-engineio = ">=4.15.1"
 
 [package.extras]
 asyncio-client = ["aiohttp (>=3.4)"]
 client = ["requests (>=2.21.0)", "websocket-client (>=0.54.0)"]
-docs = ["sphinx"]
+dev = ["tox"]
+docs = ["furo", "sphinx"]
 
 [[package]]
 name = "pytokens"
@@ -2736,4 +2738,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.1"
 python-versions = "3.11.0"
-content-hash = "aba61ad96ac66c33069a79c1ea601f55fc82ccc46ea7950e367c662a0872093f"
+content-hash = "2f7cea9f20c503b8fd3946336ca0041c7169e6ed6686fdaa4116a6059c3ea7d7"
